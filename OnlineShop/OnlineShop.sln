@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.31005.135
+VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShopWebApp", "OnlineShopWebApp\OnlineShopWebApp.csproj", "{DF274176-8556-4AF1-8067-45310D84BE31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShopWebApp", "OnlineShopWebApp\OnlineShopWebApp.csproj", "{C940D9C5-E268-421D-8060-0C886AAAA1E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DF274176-8556-4AF1-8067-45310D84BE31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF274176-8556-4AF1-8067-45310D84BE31}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF274176-8556-4AF1-8067-45310D84BE31}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF274176-8556-4AF1-8067-45310D84BE31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C940D9C5-E268-421D-8060-0C886AAAA1E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C940D9C5-E268-421D-8060-0C886AAAA1E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C940D9C5-E268-421D-8060-0C886AAAA1E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C940D9C5-E268-421D-8060-0C886AAAA1E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {ECA784F3-67DB-46B0-8409-50EDAD1BCB75}
+		SolutionGuid = {13613F30-E25B-456E-8F02-481119D50FB8}
 	EndGlobalSection
 EndGlobal
