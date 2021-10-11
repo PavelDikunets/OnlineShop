@@ -18,9 +18,52 @@ namespace OnlineShopWebApp.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public class Store
         {
-            return View();
+            public List<Product> Products;
+            public Store()
+            {
+                Products = new List<Product>
+                {
+                    new Product(1, "Ноутбук Xiaomi", 74900, "Процессор Intel"),
+                    new Product(2, "Ноутбук Asus", 65500, "Процессор Intel"),
+                    new Product(3, "Ноутбук Dell", 49300, "Процессор Amd"),
+                };
+                
+            }
+            public string ShowCatalog()
+            {
+                string result = "";
+                foreach (Product product in Products)
+                {
+                    result += product.Print() + "\n";
+                }
+                return result;
+            }
+
+        }
+        public class Product
+        {
+            private int Id { get; set; }
+            private string Name { get; set; }
+            private decimal Cost { get; set; }
+            private string Description { get; set; }
+            public Product(int id, string name, decimal cost, string description)
+            {
+                Id = id;
+                Name = name;
+                Cost = cost;
+                Description = description;
+            }
+            public string Print()
+            {
+                return $"{Id}\n{Name}\n{Cost}\n";
+            }
+        }
+        public string Index()
+        {
+            Store store1 = new Store();
+            return $"{store1.ShowCatalog()}";
         }
 
         public IActionResult Privacy()
