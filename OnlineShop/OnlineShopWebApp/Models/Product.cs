@@ -1,7 +1,5 @@
 ﻿namespace OnlineShopWebApp.Controllers
 {
-    public partial class HomeController
-    {
         public class Product
         {
             private int Id { get; set; }
@@ -20,5 +18,5 @@
                 return $"{Id}\n{Name}\n{Cost}\n";
             }
         }
-    }
 }
+

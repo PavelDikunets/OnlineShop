@@ -2,8 +2,6 @@
 
 namespace OnlineShopWebApp.Controllers
 {
-    public partial class HomeController
-    {
         public class Store
         {
             public List<Product> Products;
@@ -26,7 +24,5 @@ namespace OnlineShopWebApp.Controllers
                 }
                 return result;
             }
-
         }
-    }
 }
