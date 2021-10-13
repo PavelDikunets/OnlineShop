@@ -8,10 +8,10 @@ namespace OnlineShopWebApp.Controllers
 {
     public class ProductController : Controller
     {
-        public string Index(int Id)
+        public string Index(int id)
         {
             Store store = new Store();
-            return store.AboutProduct(Id);
+            return store.ShowInfoById(id);
         }
     }
 }

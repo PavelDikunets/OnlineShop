@@ -17,6 +17,11 @@
             {
                 return $"{Id}\n{Name}\n{Cost}\n";
             }
+        public int GetId()
+        {
+            return Id;
+        }
+
             public string PrintAboutProduct()
             {
                 return $"{Id}\n{Name}\n{Cost}\n{Description}";
