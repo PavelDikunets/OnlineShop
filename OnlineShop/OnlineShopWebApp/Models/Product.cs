@@ -2,7 +2,7 @@
 {
         public class Product
         {
-            private int Id { get; set; }
+            public int Id { get; }
             private string Name { get; set; }
             private decimal Cost { get; set; }
             private string Description { get; set; }
@@ -16,6 +16,10 @@
             public string Print()
             {
                 return $"{Id}\n{Name}\n{Cost}\n";
+            }
+            public string PrintAboutProduct()
+            {
+                return $"{Id}\n{Name}\n{Cost}\n{Description}";
             }
         }
 }
