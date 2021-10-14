@@ -26,11 +26,11 @@ namespace OnlineShopWebApp.Controllers
         public string ShowInfoById(int id)
         {
             string showInfoById = "";
-            for (int i = 0; i < Products.Count; i++)
+            foreach (Product product in Products)
+            {
+                if (id == product.Id)
                 {
-                if (id == Products[i].GetId())
-                {
-                    showInfoById = $"{Products[i].PrintAboutProduct()}";
+                    showInfoById = $"{product.PrintAboutProduct()}";
                     return showInfoById;
                 }
             }
