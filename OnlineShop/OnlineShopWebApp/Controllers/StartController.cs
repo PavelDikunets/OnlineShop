@@ -10,16 +10,16 @@ namespace OnlineShopWebApp.Controllers
     {
         public string Hello()
         {
-            int Time = DateTime.Now.Hour;
-            if (Time < 6)
+            var currentTime = DateTime.Now.Hour;
+            if (currentTime < 6)
             {
                 return "Доброй ночи";
             }
-            if (Time < 12)
+            if (currentTime < 12)
             {
                 return "Доброе утро";
             }
-            if (Time >= 12 && Time < 18)
+            if (currentTime < 18)
             {
                 return "Добрый день";
             }
