@@ -4,20 +4,20 @@
     {
         private static int InstanceCounter = 0;
         public int Id { get; }
-        private string Name { get; }
-        private decimal Cost { get; }
-        private string Description { get; }
-        public Product(int id, string name, decimal cost, string description)
+        public string Name { get; }
+        public decimal Cost { get; }
+        public string Description { get; }
+        public Product(string name, decimal cost, string description)
         {
-            Id = id;
+            Id = InstanceCounter;
             Name = name;
             Cost = cost;
             Description = description;
             InstanceCounter += 1;
         }
-        public string Print()
+        public override string ToString()
         {
-            return $"{Id}\n{Name}\n{Cost}\n";
+            return $"{Id}\n{Name}\n{Cost}";
         }
         public string PrintAboutProduct()
         {
