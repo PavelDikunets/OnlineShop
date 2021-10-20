@@ -4,7 +4,7 @@ namespace OnlineShopWebApp.Controllers
 {
     public class Store
     {
-        public List<Product> Products;
+        private static List<Product> Products;
         public Store()
         {
             Products = new List<Product>
@@ -36,6 +36,6 @@ namespace OnlineShopWebApp.Controllers
             }
             return $"По текущему Id:{id} товар не найден!";
         }
-    }         
+    }
 }
 
