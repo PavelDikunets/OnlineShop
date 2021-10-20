@@ -19,10 +19,6 @@
         {
             return $"{Id}\n{Name}\n{Cost}";
         }
-        public string PrintAboutProduct()
-        {
-            return $"{Id}\n{Name}\n{Cost}\n{Description}";
-        }
     }
 }
 

@@ -16,9 +16,7 @@ namespace OnlineShopWebApp.Controllers
             {
                 return $"По текущему Id:{id} товар не найден!";
             }
-            return $"{product}\n{product.Cost}\n{product.Description}";
-            //var store = new Store();
-            //return store.ShowInfoById(id);
+            return $"{product}\n{product.Description}";
         }
     }
 }
