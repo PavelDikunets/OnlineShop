@@ -1,26 +1,24 @@
 ﻿namespace OnlineShopWebApp.Controllers
 {
-        public class Product
+    public class Product
+    {
+        private static int InstanceCounter = 0;
+        public int Id { get; }
+        public string Name { get; }
+        public decimal Cost { get; }
+        public string Description { get; }
+        public Product(string name, decimal cost, string description)
         {
-            public int Id { get; }
-            private string Name { get; set; }
-            private decimal Cost { get; set; }
-            private string Description { get; set; }
-            public Product(int id, string name, decimal cost, string description)
-            {
-                Id = id;
-                Name = name;
-                Cost = cost;
-                Description = description;
-            }
-            public string Print()
-            {
-                return $"{Id}\n{Name}\n{Cost}\n";
-            }
-            public string PrintAboutProduct()
-            {
-                return $"{Id}\n{Name}\n{Cost}\n{Description}";
-            }
+            Id = InstanceCounter;
+            Name = name;
+            Cost = cost;
+            Description = description;
+            InstanceCounter += 1;
         }
+        public override string ToString()
+        {
+            return $"{Id}\n{Name}\n{Cost}";
+        }
+    }
 }
 
