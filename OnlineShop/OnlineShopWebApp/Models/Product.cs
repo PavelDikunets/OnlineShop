@@ -1,4 +1,4 @@
-﻿namespace OnlineShopWebApp.Controllers
+﻿namespace OnlineShopWebApp.Models
 {
     public class Product
     {
