@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace OnlineShopWebApp
 {
-    public class ProductsStorage
+    public class InMemoryProductsStorage : IProductsStorage
     {
         private List<Product> products = new List<Product>()
         {
