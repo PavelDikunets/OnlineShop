@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace OnlineShopWebApp
 {
-    public static class CartsRepository
+    public class CartsStorage
     {
         private static List<Cart> carts = new List<Cart>();
 

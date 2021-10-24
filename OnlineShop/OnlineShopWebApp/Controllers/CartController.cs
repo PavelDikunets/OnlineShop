@@ -4,21 +4,22 @@ namespace OnlineShopWebApp.Controllers
 {
     public class CartController : Controller
     {
-        private readonly ProductsRepository productRepository;
-        public CartController()
+        private readonly ProductsStorage productsStorage;
+
+        public CartController(ProductsStorage productsStorage)
         {
-            productRepository = new ProductsRepository();
+            this.productsStorage = productsStorage;
         }
         public IActionResult Index()
         {
-            var cart = CartsRepository.TryGetByUserId(Constants.UserId);
+            var cart = CartsStorage.TryGetByUserId(Constants.UserId);
             return View(cart);
         }
 
         public IActionResult Add(int productId)
         {
-            var product = productRepository.TryGetById(productId);
-            CartsRepository.Add(product, Constants.UserId);
+            var product = productsStorage.TryGetById(productId);
+            CartsStorage.Add(product, Constants.UserId);
             return RedirectToAction("Index");
         }
     }
