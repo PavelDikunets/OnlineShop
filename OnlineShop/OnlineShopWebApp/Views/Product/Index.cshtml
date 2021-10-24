@@ -2,26 +2,18 @@
 
 <div class="row">
     <div class="col-3">
-        <img class="float-left" src="/img/notebook.jpg" style="max-width: 100%" alt="Notebook" />
+        <img src="/img/notebook.jpg" style="max-width: 100%" alt="Notebook" />
     </div>
-    <div class="col-6">
+    <div class="col">
         <h2>@Model.Name</h2>
         <h5>ID: @Model.Id</h5>
         <h6>Описание:</h6><p>@Model.Description</p>
-    </div>
-</div>
-<div class="row text-center">
-    <div class="col-3">
-        <h3>Цена: @Model.Cost руб.</h3>
+        <div class="text-right"><h3>Цена: @Model.Cost руб.</h3></div>
     </div>
 </div>
 <div class="row">
-    <div class="col-3 text-center">
-        <a class="btn btn-dark" href="#" role="button">Добавить в корзину</a>
-    </div>
-    <div class="col-6 text-right">
+    <div class="col text-right">
         <a class="btn btn-dark" href="/" role="button">Продолжить покупки</a>
+        <a class="btn btn-dark" href="/cart/add?productId=@Model.Id" role="button">Добавить в корзину</a>
     </div>
 </div>
-
-

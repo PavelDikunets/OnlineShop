@@ -1,0 +1,42 @@
+﻿@model Cart
+
+@if (Model == null)
+{
+    <h4>Корзина пустая!</h4>
+}
+else
+{
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Наименование</th>
+                        <th>Количество</th>
+                        <th>Цена</th>
+                        <th>Стоимость</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.Product.Name</td>
+                            <td>@item.Amount шт.</td>
+                            <td>@item.Product.Cost руб.</td>
+                            <td>@item.Cost руб.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="text-right">
+                <h5>Итого:</h5>
+                <h3>@Model.Cost руб.</h3>
+            </div>
+            <div class="text-center">
+                <a class="btn btn-dark" href="/" role="button">Продолжить покупки</a>
+                <a class="btn btn-success" href="#" role="button">Оформить заказ</a>
+            </div>
+        </div>
+    </div>
+}
