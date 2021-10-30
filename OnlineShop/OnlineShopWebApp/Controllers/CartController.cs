@@ -24,10 +24,10 @@ namespace OnlineShopWebApp.Controllers
             cartsStorage.Add(product, Constants.UserId);
             return RedirectToAction("Index");
         }
-        public IActionResult Remove(int productId)
+        public IActionResult DecreaseAmount(int productId)
         {
             var product = productsStorage.TryGetById(productId);
-            cartsStorage.Remove(product, Constants.UserId);
+            cartsStorage.DecreaseAmount(product, Constants.UserId);
             return RedirectToAction("Index");
         }
         public IActionResult Clear(int productId)

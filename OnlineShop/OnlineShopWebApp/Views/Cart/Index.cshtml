@@ -22,7 +22,7 @@ else
                     {
                         <tr>
                             <td>@item.Product.Name</td>
-                            <td><a class="btn btn-dark" asp-controller="Cart" asp-action="Remove" asp-route-productId="@item.Product.Id" role="button">-</a> @item.Amount шт. <a class="btn btn-dark" asp-controller="Cart" asp-action="Add" asp-route-productId="@item.Product.Id" role="button">+</a></td>
+                            <td><a class="btn btn-dark" asp-controller="Cart" asp-action="DecreaseAmount" asp-route-productId="@item.Product.Id" role="button">-</a> @item.Amount шт. <a class="btn btn-dark" asp-controller="Cart" asp-action="Add" asp-route-productId="@item.Product.Id" role="button">+</a></td>
                             <td>@item.Product.Cost руб.</td>
                             <td>@item.Cost руб.</td>
                         </tr>

@@ -53,7 +53,7 @@ namespace OnlineShopWebApp
                 }
             }
         }
-        public void Remove(Product product, string userId)
+        public void DecreaseAmount(Product product, string userId)
         {
             var currentCart = TryGetByUserId(userId);
             var currentCartItem = currentCart.Items.FirstOrDefault(x => x.Product.Id == product.Id);
