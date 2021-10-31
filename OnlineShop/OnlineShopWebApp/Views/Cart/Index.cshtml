@@ -1,6 +1,6 @@
 ﻿@model Cart
 
-@if (Model == null)
+@if (Model == null || Model.Items.Count == 0)
 {
     <h4>Корзина пустая!</h4>
 }

@@ -30,10 +30,9 @@ namespace OnlineShopWebApp.Controllers
             cartsStorage.DecreaseAmount(product, Constants.UserId);
             return RedirectToAction("Index");
         }
-        public IActionResult Clear(int productId)
+        public IActionResult Clear()
         {
-            var product = productsStorage.TryGetById(productId);
-            cartsStorage.Clear(product, Constants.UserId);
+            cartsStorage.Clear(Constants.UserId);
             return RedirectToAction("Index");
         }
     }
