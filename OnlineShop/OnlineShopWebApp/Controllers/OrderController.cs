@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -16,10 +17,13 @@ namespace OnlineShopWebApp.Controllers
         {
             return View();
         }
-        public IActionResult Check_out()
+
+        [HttpPost]
+        public IActionResult Check_out(Order order)
         {
             var currentCart = cartsStorage.TryGetByUserId(Constants.UserId);
-            ordersStorage.Add(currentCart);
+            order.Cart = currentCart;
+            ordersStorage.Add(order);
             cartsStorage.Clear(Constants.UserId);
             return View();
         }

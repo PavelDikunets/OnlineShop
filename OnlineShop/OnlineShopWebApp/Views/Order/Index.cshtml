@@ -1,18 +1,28 @@
-﻿<div class="row">
-    <div class="col">
-        <label>Введите ФИО</label>
-        <div>
-            <input type="text" />
+﻿<form method="post">
+    <div class="row text-center">
+        <div class="col">
+            <label>Ваше имя:</label>
+            <div>
+                <input type="text" name="name" />
+            </div>
+            <label>Адрес доставки:</label>
+            <div>
+                <input type="text" name="address" />
+            </div>
+            <label>Номер телефона:</label>
+            <div>
+                <input type="text" name="phone" />
+            </div>
+            <label>Ваш E-mail:</label>
+            <div>
+                <input type="text" name="email" />
+            </div>
+            <label>Комментарии к заказу:</label>
+            <div>
+                <input type="text" name="comments" />
+            </div>
+            <br />
+            <button class="btn btn-success" input type="submit" asp-controller="Order" asp-action="Check_out" role="button">Оформить заказ</button>
         </div>
-        <label>Введите адрес доставки</label>
-        <div>
-            <input type="text" />
-        </div>
-        <label>Введите телефон</label>
-        <div>
-            <input type="text" />
-        </div>
-        <br />
-        <a class="btn btn-success" asp-controller="Order" asp-action="Check_out" role="button">Оформить заказ</a>
     </div>
-</div>
+</form>

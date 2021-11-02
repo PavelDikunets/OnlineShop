@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using OnlineShopWebApp.Models;
+using System.Collections.Generic;
 
 namespace OnlineShopWebApp
 {
     public class InMemoryOrdersStorage : IOrdersStorage
     {
-        private List<Cart> orders = new List<Cart>();
+        private List<Order> orders = new List<Order>();
 
-        public void Add(Cart cart)
+        public void Add(Order order)
         {
-            orders.Add(cart);
+            orders.Add(order);
         }
     }
 }
