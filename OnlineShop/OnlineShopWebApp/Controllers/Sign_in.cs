@@ -8,6 +8,7 @@ namespace OnlineShopWebApp.Controllers
         {
             return View();
         }
+        [HttpPost]
         public IActionResult Login(string login, string password, bool remember)
         {
             return RedirectToAction("Index");
