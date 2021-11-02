@@ -8,10 +8,12 @@ namespace OnlineShopWebApp.Controllers
         {
             return View();
         }
+        [HttpPost]
         public IActionResult Sign_in(string login, string password, bool remember)
         {
             return RedirectToAction("Index");
         }
+        [HttpPost]
         public IActionResult Sign_up(string login, string password, string repeatPassword)
         {
             return View();
