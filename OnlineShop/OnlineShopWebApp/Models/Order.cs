@@ -1,12 +1,13 @@
-﻿namespace OnlineShopWebApp.Models
+﻿using System.Collections.Generic;
+
+namespace OnlineShopWebApp.Models
 {
     public class Order
     {
         private static int InstanceCounter = 1;
         public int Number { get; set; }
-        public string Comments { get; set; }
-        public User User { get; set; }
-        public Cart Cart { get; set; }
+        public UserDeliveryInfo User { get; set; }
+        public List<CartItem> Items { get; set; }
         public Order()
         {
             Number = InstanceCounter;
