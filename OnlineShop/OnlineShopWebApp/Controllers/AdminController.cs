@@ -52,6 +52,7 @@ namespace OnlineShopWebApp.Controllers
         {
             return View();
         }
+        [HttpPost]
         public IActionResult AddNewProduct(string name, decimal cost, string description)
         {
             productsStorage.Add(name, cost, description);
