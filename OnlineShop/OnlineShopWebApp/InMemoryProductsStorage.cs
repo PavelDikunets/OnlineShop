@@ -20,5 +20,27 @@ namespace OnlineShopWebApp
         {
             return products.FirstOrDefault(product => product.Id == id);
         }
+        public void Edit(int id, string name, decimal cost, string description)
+        {
+            var product = products.FirstOrDefault(x => x.Id == id);
+            product.Name = name;
+            product.Cost = cost;
+            product.Description = description;
+        }
+        public void Remove(int id)
+        {
+            var product = products.FirstOrDefault(x => x.Id == id);
+            products.Remove(product);
+        }
+        public void Add(string name, decimal cost, string description)
+        {
+            var product = new Product(name, cost, description)
+            {
+                Name = name,
+                Cost = cost,
+                Description = description
+            };
+            products.Add(product);
+        }
     }
 }
