@@ -1,0 +1,51 @@
+﻿@model UserLoginInfo
+
+<form method="post">
+    <div class="row">
+        <div class="col-12 text-center">
+            <div>
+                <h3>Вход</h3>
+            </div>
+            <div>
+                <p>
+                    <div>
+                        <label asp-for="Login">Логин:</label><br />
+                        <input asp-for="Login" size="30" placeholder="Example@example.com" /><br />
+                        <span style="color:lightcoral" asp-validation-for="Login" />
+                    </div>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <div>
+                        <label asp-for="Password">Пароль:</label><br />
+                        <input asp-for="Password" type="password" size="30" placeholder="Пароль" /><br />
+                        <span style="color:lightcoral" asp-validation-for="Password" />
+                    </div>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <input type="checkbox" id="isRemember" value="true" name="isRemember" /> Запомнить меня?
+                </p>
+            </div>
+            <p>
+                <div>
+                    <p>
+                        <button class="btn btn-dark w-25" type="submit" asp-controller="Authorization" asp-action="Login">Войти</button>
+                    </p>
+                </div>
+
+            </p>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-12 text-center">
+        <div>
+            <p>
+                <a class="btn btn-dark w-25" asp-controller="Authorization" asp-action="Registration">Регистрация</a>
+            </p>
+        </div>
+    </div>
+</div>

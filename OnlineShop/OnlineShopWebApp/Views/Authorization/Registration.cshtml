@@ -1,0 +1,45 @@
+﻿@model UserRegistrationInfo
+
+<form method="post">
+    <div class="row">
+        <div class="col-12 text-center">
+            <div>
+                <h3>Регистрация</h3>
+            </div>
+            <div>
+                <p>
+                    <div>
+                        <label asp-for="Login">Логин:</label><br />
+                        <input asp-for="Login" size="30" placeholder="Example@example.com" /><br />
+                        <span style="color:lightcoral" asp-validation-for="Login" />
+                    </div>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <div>
+                        <label asp-for="Password">Пароль:</label><br />
+                        <input asp-for="Password" type="password" size="30" placeholder="Пароль" /><br />
+                        <span style="color:lightcoral" asp-validation-for="Password" />
+                    </div>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <div>
+                        <label asp-for="ConfirmPassword">Подтвердите пароль:</label><br />
+                        <input asp-for="ConfirmPassword" type="password" size="30" placeholder="Подтвердите пароль" /><br />
+                        <span style="color:lightcoral" asp-validation-for="ConfirmPassword" />
+                    </div>
+                </p>
+            </div>
+            <p>
+                <div>
+                    <p>
+                        <button class="btn btn-dark w-25" type="submit" asp-controller="Authorization" asp-action="Registration">Зарегистрироваться</button>
+                    </p>
+                </div>
+            </p>
+        </div>
+    </div>
+</form>
