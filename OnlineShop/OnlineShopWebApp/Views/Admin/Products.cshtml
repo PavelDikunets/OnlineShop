@@ -3,15 +3,9 @@
 <div class="text-center">
     <h3>Продукты</h3>
 </div>
+
 <div class="row">
-    <div class="col-2">
-        <div class="btn-group-vertical">
-            <a class="btn btn-dark" style="margin-bottom:10px" asp-controller="Admin" asp-action="Orders">Заказы</a>
-            <a class="btn btn-dark" style="margin-bottom:10px" asp-controller="Admin" asp-action="Users">Пользователи</a>
-            <a class="btn btn-dark" style="margin-bottom:10px" asp-controller="Admin" asp-action="Roles">Роли</a>
-            <a class="btn btn-dark" style="margin-bottom:10px" asp-controller="Admin" asp-action="Products">Продукты</a>
-        </div>
-    </div>
+    @await Html.PartialAsync("AdminLeftMenu")
     <div class="col">
         <table class="table">
             <thread>
@@ -40,3 +34,4 @@
         </div>
     </div>
 </div>
+
