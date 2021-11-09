@@ -1,25 +1,42 @@
-﻿<form method="post">
+﻿@model UserDeliveryInfo
+
+<form method="post">
     <div class="row text-center">
         <div class="col">
-            <label>Ваше имя:</label>
             <div>
-                <input type="text" name="name" />
+                <label asp-for="FirstName">Имя:</label><br />
+                <input asp-for="FirstName" style="width:250px" placeholder="Иван" /><br />
+                <span style="color:lightcoral" asp-validation-for="FirstName" />
             </div>
-            <label>Адрес доставки:</label>
             <div>
-                <input type="text" name="address" />
+                <label asp-for="LastName">Фамилия:</label><br />
+                <input asp-for="LastName" style="width:250px" placeholder="Иванов" /><br />
+                <span style="color:lightcoral" asp-validation-for="LastName" />
             </div>
-            <label>Номер телефона:</label>
             <div>
-                <input type="text" name="phone" />
+                <label asp-for="City">Город:</label><br />
+                <input asp-for="City" style="width:250px" placeholder="Санкт-Петербург" /><br />
+                <span style="color:lightcoral" asp-validation-for="City" />
             </div>
-            <label>Ваш E-mail:</label>
             <div>
-                <input type="text" name="email" />
+                <label asp-for="ZipCode">Почтовый индекс:</label><br />
+                <input asp-for="ZipCode" type="text" style="width:250px" placeholder="190000" /><br />
+                <span style="color:lightcoral" asp-validation-for="ZipCode" />
             </div>
-            <label>Комментарии к заказу:</label>
             <div>
-                <input type="text" name="comments" />
+                <label asp-for="Address">Адрес:</label><br />
+                <input asp-for="Address" style="width:250px" placeholder="Улица, дом, квартира" /><br />
+                <span style="color:lightcoral" asp-validation-for="Address" />
+            </div>
+            <div>
+                <label asp-for="Phone">Телефон:</label><br />
+                <input asp-for="Phone" type="tel" value="+7 " style="width:250px" placeholder="+7 XXX XXX-XX-XX" /><br />
+                <span style="color:lightcoral" asp-validation-for="Phone" />
+            </div>
+            <div>
+                <label asp-for="Comments">Комментарии к заказу:</label><br />
+                <input asp-for="Comments" style="width:250px" /><br />
+                <span style="color:lightcoral" asp-validation-for="Comments" />
             </div>
             <br />
             <button class="btn btn-success" input type="submit" asp-controller="Order" asp-action="Check_out" role="button">Оформить заказ</button>
