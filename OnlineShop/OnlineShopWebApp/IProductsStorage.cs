@@ -9,5 +9,6 @@ namespace OnlineShopWebApp
         Product TryGetById(int id);
         void Remove(int id);
         void Add(Product product);
+        void Update(Product editedProduct);
     }
 }

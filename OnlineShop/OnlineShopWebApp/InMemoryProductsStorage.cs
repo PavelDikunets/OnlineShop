@@ -44,5 +44,11 @@ namespace OnlineShopWebApp
         {
             products.Add(product);
         }
+        public void Update(Product editedProduct)
+        {
+            var product = products.FirstOrDefault(x => x.Id == editedProduct.Id);
+            products.Remove(product);
+            products.Add(editedProduct);
+        }
     }
 }

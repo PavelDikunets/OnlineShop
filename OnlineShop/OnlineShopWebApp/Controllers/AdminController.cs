@@ -41,10 +41,7 @@ namespace OnlineShopWebApp.Controllers
         [HttpPost]
         public IActionResult SaveEditedProduct(Product editedProduct)
         {
-            var products = productsStorage.GetAll();
-            var product = productsStorage.TryGetById(editedProduct.Id);
-            products.Remove(product);
-            products.Add(editedProduct);
+            productsStorage.Update(editedProduct);
             return RedirectToAction("Products");
         }
         public IActionResult RemoveProduct(int id)
