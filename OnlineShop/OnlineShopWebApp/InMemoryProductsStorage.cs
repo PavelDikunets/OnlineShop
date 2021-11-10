@@ -37,12 +37,18 @@ namespace OnlineShopWebApp
         }
         public void Remove(int id)
         {
-            var product = products.FirstOrDefault(x => x.Id == id);
+            var product = TryGetById(id);
             products.Remove(product);
         }
         public void Add(Product product)
         {
             products.Add(product);
+        }
+        public void Update(Product editedProduct)
+        {
+            var product = TryGetById(editedProduct.Id);
+            products.Remove(product);
+            products.Add(editedProduct);
         }
     }
 }
