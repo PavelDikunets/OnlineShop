@@ -21,15 +21,20 @@ namespace OnlineShopWebApp.Controllers
         [HttpPost]
         public IActionResult Check_out(UserDeliveryInfo user)
         {
-            var currentCart = cartsStorage.TryGetByUserId(Constants.UserId);
-            var order = new Order
+            if (ModelState.IsValid)
             {
-                User = user,
-                Items = currentCart.Items
-            };
-            ordersStorage.Add(order);
-            cartsStorage.Clear(Constants.UserId);
-            return View();
+                var currentCart = cartsStorage.TryGetByUserId(Constants.UserId);
+                var order = new Order
+                {
+                    User = user,
+                    Items = currentCart.Items
+                };
+                ordersStorage.Add(order);
+                cartsStorage.Clear(Constants.UserId);
+                return View();
+
+            }
+            return View(user);
         }
     }
 }
