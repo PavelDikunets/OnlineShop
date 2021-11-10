@@ -37,7 +37,7 @@ namespace OnlineShopWebApp
         }
         public void Remove(int id)
         {
-            var product = products.FirstOrDefault(x => x.Id == id);
+            var product = TryGetById(id);
             products.Remove(product);
         }
         public void Add(Product product)
@@ -46,7 +46,7 @@ namespace OnlineShopWebApp
         }
         public void Update(Product editedProduct)
         {
-            var product = products.FirstOrDefault(x => x.Id == editedProduct.Id);
+            var product = TryGetById(editedProduct.Id);
             products.Remove(product);
             products.Add(editedProduct);
         }
