@@ -9,5 +9,6 @@ namespace OnlineShopWebApp
         void Add(Order order);
         List<Order> GetAll();
         Order TryGetByOrderId(Guid id);
+        void UpdateStatus(Guid orderId, string status);
     }
 }

@@ -21,5 +21,10 @@ namespace OnlineShopWebApp
         {
             return orders.FirstOrDefault(order => order.Id == id);
         }
+        public void UpdateStatus(Guid orderId, string status)
+        {
+            var order = TryGetByOrderId(orderId);
+            order.Status = status;
+        }
     }
 }
