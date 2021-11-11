@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShopWebApp.Models;
+using System;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -22,6 +23,11 @@ namespace OnlineShopWebApp.Controllers
         {
             var orders = ordersStorage.GetAll();
             return View(orders);
+        }
+        public IActionResult OrderDetails(Guid id)
+        {
+            var order = ordersStorage.TryGetByOrderId(id);
+            return View(order);
         }
         public IActionResult Users()
         {
