@@ -24,7 +24,6 @@ namespace OnlineShopWebApp.Controllers
             var orders = ordersStorage.GetAll();
             return View(orders);
         }
-
         public IActionResult OrderDetails(Guid id)
         {
             var order = ordersStorage.TryGetByOrderId(id);

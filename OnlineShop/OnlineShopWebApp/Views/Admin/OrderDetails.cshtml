@@ -1,87 +1,101 @@
 ﻿@model Order
 
-<div class="text-center">
-    <h3>Заказ № @Model.Number</h3>
-</div>
+<form method="post">
+    <input type="hidden" name="orderId" value="@Model.Id" />
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-2">
-            @await Html.PartialAsync("AdminLeftMenu")
-        </div>
-        <div class="col-md-4 h5">
-            <div>
-                Получатель:
+    <div class="text-center">
+        <h3>Заказ № @Model.Number</h3>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                @await Html.PartialAsync("AdminLeftMenu")
             </div>
-            <br />
-            <div>
-                Телефон:
+            <div class="col-md-4 h5">
+                <div>
+                    Получатель:
+                </div>
+                <br />
+                <div>
+                    Телефон:
+                </div>
+                <br />
+                <div>
+                    Почтовый индекс:
+                </div>
+                <br />
+                <div>
+                    Город:
+                </div>
+                <br />
+                <div>
+                    Адрес доставки:
+                </div>
+                <br />
+                <div>
+                    Комментарии:
+                </div>
+                <br />
+                <div>
+                    Дата и время оформления:
+                </div>
+                <br />
+                <div>
+                    Сумма заказа:
+                </div>
+                <br />
+                <div>
+                    Статус заказа:
+                </div>
             </div>
-            <br />
-            <div>
-                Почтовый индекс:
-            </div>
-            <br />
-            <div>
-                Город:
-            </div>
-            <br />
-            <div>
-                Адрес доставки:
-            </div>
-            <br />
-            <div>
-                Комментарии:
-            </div>
-            <br />
-            <div>
-                Дата и время оформления:
-            </div>
-            <br />
-            <div>
-                Сумма заказа:
-            </div>
-            <br />
-            <div>
-                Статус заказа:
-            </div>
-        </div>
-        <div class="col h5">
-            <div>
-                @Model.User.LastName @Model.User.FirstName
-            </div>
-            <br />
-            <div>
-                @Model.User.Phone
-            </div>
-            <br />
-            <div>
-                @Model.User.ZipCode
-            </div>
-            <br />
-            <div>
-                @Model.User.City
-            </div>
-            <br />
-            <div>
-                @Model.User.Address
-            </div>
-            <br />
-            <div>
-                @Model.User.Comments
-            </div>
-            <br />
-            <div>
-                @Model.CreateDate.ToShortDateString() @Model.CreateDate.ToShortTimeString()
-            </div>
-            <br />
-            <div>
-                @Model.Cost
-            </div>
-            <br />
-            <div>
-                @Model.Status
+            <div class="col h5">
+                <div>
+                    @Model.User.LastName @Model.User.FirstName
+                </div>
+                <br />
+                <div>
+                    @Model.User.Phone
+                </div>
+                <br />
+                <div>
+                    @Model.User.ZipCode
+                </div>
+                <br />
+                <div>
+                    @Model.User.City
+                </div>
+                <br />
+                <div>
+                    @Model.User.Address
+                </div>
+                <br />
+                <div>
+                    @Model.User.Comments
+                </div>
+                <br />
+                <div>
+                    @Model.CreateDate.ToShortDateString() @Model.CreateDate.ToShortTimeString()
+                </div>
+                <br />
+                <div>
+                    @Model.Cost
+                </div>
+                <br />
+                <div>
+                    @Model.Status
+                    <select class="form-select" name="Status" aria-label="Status Select">
+                        <option name="Status" value="Создан">Создан</option>
+                        <option name="Status" value="Обработан">Обработан</option>
+                        <option name="Status" value="В пути">В пути</option>
+                        <option name="Status" value="Доставлен">Доставлен</option>
+                        <option name="Status" value="Отменен">Отменен</option>
+                    </select>
+                </div>
+                <br />
+                <div>
+                    <button class="btn btn-outline-success" button type="submit" asp-controller="Admin" asp-action="UpdateStatus">Сохранить</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>
