@@ -1,4 +1,40 @@
-﻿<div class="text-center">
+﻿@model List<Order>
+
+<div class="text-center">
     <h3>Заказы</h3>
 </div>
-@await Html.PartialAsync("AdminLeftMenu")
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            @await Html.PartialAsync("AdminLeftMenu")
+        </div>
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Фамилия имя</th>
+                        <th>Общая сумма</th>
+                        <th>Дата</th>
+                        <th>Время</th>
+                        <th>Статус</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                    <tr>
+                        <td>@order.Number</td>
+                        <td>@order.User.LastName @order.User.FirstName</td>
+                        <td>@order.Cost</td>
+                        <td>@order.CreateDate.ToShortDateString()</td>
+                        <td>@order.CreateDate.ToShortTimeString()</td>
+                        <td>@order.Status</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
