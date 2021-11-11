@@ -24,10 +24,18 @@ namespace OnlineShopWebApp.Controllers
             var orders = ordersStorage.GetAll();
             return View(orders);
         }
+
         public IActionResult OrderDetails(Guid id)
         {
             var order = ordersStorage.TryGetByOrderId(id);
             return View(order);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateStatus(Guid orderId, string status)
+        {
+            ordersStorage.UpdateStatus(orderId, status);
+            return RedirectToAction("Orders");
         }
         public IActionResult Users()
         {
