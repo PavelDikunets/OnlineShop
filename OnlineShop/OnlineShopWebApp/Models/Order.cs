@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineShopWebApp.Models
 {
@@ -8,10 +10,20 @@ namespace OnlineShopWebApp.Models
         public int Number { get; set; }
         public UserDeliveryInfo User { get; set; }
         public List<CartItem> Items { get; set; }
+        public DateTime CreateDate = DateTime.Now;
+        public string Status { get; set; }
+        public decimal Cost
+        {
+            get
+            {
+                return Items?.Sum(x => x.Cost) ?? 0;
+            }
+        }
         public Order()
         {
             Number = InstanceCounter;
             InstanceCounter += 1;
+            Status = "Создан";
         }
     }
 }
