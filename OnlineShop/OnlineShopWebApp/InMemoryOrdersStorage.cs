@@ -1,5 +1,7 @@
 ﻿using OnlineShopWebApp.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineShopWebApp
 {
@@ -14,6 +16,10 @@ namespace OnlineShopWebApp
         public List<Order> GetAll()
         {
             return orders;
+        }
+        public Order TryGetByOrderId(Guid id)
+        {
+            return orders.FirstOrDefault(order => order.Id == id);
         }
     }
 }
