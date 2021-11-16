@@ -1,4 +1,33 @@
-﻿<div class="text-center">
+﻿@model List<Role>
+
+<div class="text-center">
     <h3>Роли</h3>
 </div>
-@await Html.PartialAsync("AdminLeftMenu")
+<div class="row">
+    <div class="col-md-2">
+        @await Html.PartialAsync("AdminLeftMenu")
+    </div>
+    <div class="col">
+        <table class="table">
+            <thread>
+                <tr>
+                    <th>№</th>
+                    <th>Роль</th>
+                </tr>
+            </thread>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@Model[i].Name</td>
+                        <td><a class="btn btn-outline-danger" asp-controller="Admin" asp-action="RemoveRole" asp-route-roleName="@Model[i].Name">Удалить</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="col-md-8 text-right">
+            <a class="btn btn-success" asp-controller="Admin" asp-action="AddRole">Добавить роль</a>
+        </div>
+    </div>
+</div>
