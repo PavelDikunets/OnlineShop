@@ -1,0 +1,23 @@
+﻿@model Role
+
+<form method="post">
+    <div class="text-center">
+        <h3>Роли</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            @await Html.PartialAsync("AdminLeftMenu")
+        </div>
+        <div class="col-md-6">
+            <div class="text-center">
+                <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+                <label asp-for="Name">Роль:</label>
+                <input asp-for="Name" class="w-100" />
+                <span style="color:lightcoral" asp-validation-for="Name" />
+            </div>
+            <div class="my-2 text-center">
+                <button class="btn btn-success" type="submit" asp-area="Admin" asp-controller="Home" asp-action="AddRole">Добавить</button>
+            </div>
+        </div>
+    </div>
+</form>
