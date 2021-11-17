@@ -5,6 +5,13 @@ namespace OnlineShopWebApp.Controllers
 {
     public class AuthorizationController : Controller
     {
+        private readonly IUsersStorage usersStorage;
+
+        public AuthorizationController(IUsersStorage usersStorage)
+        {
+            this.usersStorage = usersStorage;
+        }
+
         public IActionResult Login()
         {
             return View();
@@ -14,7 +21,15 @@ namespace OnlineShopWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                return View("SuccessfulLogin");
+                var users = usersStorage.GetAll();
+                foreach (var user in users)
+                {
+                    if (userLoginInfo.Login == user.Login && userLoginInfo.Password == user.Password)
+                    {
+                        return View("SuccessfulLogin");
+                    }
+                    ModelState.AddModelError("", "Логин/пароль неверны");
+                }
             }
             return View(userLoginInfo);
         }
@@ -25,13 +40,14 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registration(UserRegistrationInfo userRegistrationInfo)
+        public IActionResult Registering(UserRegistrationInfo user)
         {
             if (ModelState.IsValid)
             {
+                usersStorage.Add(user);
                 return View("SuccessfulRegistration");
             }
-            return View(userRegistrationInfo);
+            return View(user);
         }
     }
 }
