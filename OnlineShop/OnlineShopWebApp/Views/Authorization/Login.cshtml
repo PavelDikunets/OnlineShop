@@ -2,7 +2,7 @@
 
 <form method="post">
     <div class="row">
-        <div class="col-12 text-center">
+        <div class="col text-center">
             <div>
                 <h3>Вход</h3>
             </div>
@@ -20,7 +20,8 @@
                     <div>
                         <label asp-for="Password">Пароль:</label><br />
                         <input asp-for="Password" type="password" size="30" placeholder="Пароль" /><br />
-                        <span style="color:lightcoral" asp-validation-for="Password" />
+                        <span style="color:lightcoral" asp-validation-for="Password" /><br />
+                        <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
                     </div>
                 </p>
             </div>
