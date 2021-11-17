@@ -27,12 +27,12 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         public IActionResult SaveEditedProduct(Product editedProduct)
         {
             productsStorage.Update(editedProduct);
-            return RedirectToAction("Products");
+            return RedirectToAction("Index");
         }
         public IActionResult RemoveProduct(int id)
         {
             productsStorage.Remove(id);
-            return RedirectToAction("Products");
+            return RedirectToAction("Index");
         }
         public IActionResult AddProduct()
         {
@@ -42,7 +42,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         public IActionResult AddNewProduct(Product product)
         {
             productsStorage.Add(product);
-            return RedirectToAction("Products");
+            return RedirectToAction("Index");
         }
     }
 }
