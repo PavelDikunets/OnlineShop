@@ -18,9 +18,9 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             var products = productsStorage.GetAll();
             return View(products);
         }
-        public IActionResult EditProduct(int id)
+        public IActionResult EditProduct(int productId)
         {
-            var product = productsStorage.TryGetById(id);
+            var product = productsStorage.TryGetById(productId);
             return View(product);
         }
         [HttpPost]
@@ -29,9 +29,9 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             productsStorage.Update(editedProduct);
             return RedirectToAction("Index");
         }
-        public IActionResult RemoveProduct(int id)
+        public IActionResult RemoveProduct(int productId)
         {
-            productsStorage.Remove(id);
+            productsStorage.Remove(productId);
             return RedirectToAction("Index");
         }
         public IActionResult AddProduct()

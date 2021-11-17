@@ -17,9 +17,9 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             var orders = ordersStorage.GetAll();
             return View(orders);
         }
-        public IActionResult OrderDetails(Guid id)
+        public IActionResult OrderDetails(Guid orderId)
         {
-            var order = ordersStorage.TryGetByOrderId(id);
+            var order = ordersStorage.TryGetByOrderId(orderId);
             return View(order);
         }
 
