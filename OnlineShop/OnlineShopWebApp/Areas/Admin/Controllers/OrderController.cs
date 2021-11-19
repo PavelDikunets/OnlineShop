@@ -4,11 +4,11 @@ using System;
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class OrdersController : Controller
+    public class OrderController : Controller
     {
         private readonly IOrdersStorage ordersStorage;
 
-        public OrdersController(IProductsStorage productsStorage, IOrdersStorage ordersStorage, IRolesStorage rolesStorage)
+        public OrderController(IProductsStorage productsStorage, IOrdersStorage ordersStorage, IRolesStorage rolesStorage)
         {
             this.ordersStorage = ordersStorage;
         }
@@ -17,7 +17,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             var orders = ordersStorage.GetAll();
             return View(orders);
         }
-        public IActionResult OrderDetails(Guid orderId)
+        public IActionResult Details(Guid orderId)
         {
             var order = ordersStorage.TryGetByOrderId(orderId);
             return View(order);

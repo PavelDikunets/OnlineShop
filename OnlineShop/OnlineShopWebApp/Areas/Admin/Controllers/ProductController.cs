@@ -4,11 +4,11 @@ using OnlineShopWebApp.Models;
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ProductsController : Controller
+    public class ProductController : Controller
     {
         private readonly IProductsStorage productsStorage;
 
-        public ProductsController(IProductsStorage productsStorage)
+        public ProductController(IProductsStorage productsStorage)
         {
             this.productsStorage = productsStorage;
         }
@@ -18,28 +18,28 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             var products = productsStorage.GetAll();
             return View(products);
         }
-        public IActionResult EditProduct(int productId)
+        public IActionResult Edit(int productId)
         {
             var product = productsStorage.TryGetById(productId);
             return View(product);
         }
         [HttpPost]
-        public IActionResult SaveEditedProduct(Product editedProduct)
+        public IActionResult Edit(Product editedProduct)
         {
             productsStorage.Update(editedProduct);
             return RedirectToAction("Index");
         }
-        public IActionResult RemoveProduct(int productId)
+        public IActionResult Remove(int productId)
         {
             productsStorage.Remove(productId);
             return RedirectToAction("Index");
         }
-        public IActionResult AddProduct()
+        public IActionResult Add()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult AddNewProduct(Product product)
+        public IActionResult Add(Product product)
         {
             productsStorage.Add(product);
             return RedirectToAction("Index");

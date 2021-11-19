@@ -4,11 +4,11 @@ using OnlineShopWebApp.Models;
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class RolesController : Controller
+    public class RoleController : Controller
     {
         private readonly IRolesStorage rolesStorage;
 
-        public RolesController(IRolesStorage rolesStorage)
+        public RoleController(IRolesStorage rolesStorage)
         {
             this.rolesStorage = rolesStorage;
         }
@@ -18,13 +18,13 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             var roles = rolesStorage.GetAll();
             return View(roles);
         }
-        public IActionResult AddRole()
+        public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult AddRole(Role role)
+        public IActionResult Add(Role role)
         {
             if (rolesStorage.TryGetByName(role.Name) != null)
             {
@@ -37,7 +37,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             }
             return View(role);
         }
-        public IActionResult RemoveRole(string roleName)
+        public IActionResult Remove(string roleName)
         {
             rolesStorage.Remove(roleName);
             return RedirectToAction("Index");
