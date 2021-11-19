@@ -31,7 +31,7 @@
                         <td>@order.CreateDate.ToShortDateString()</td>
                         <td>@order.CreateDate.ToShortTimeString()</td>
                         <td>@order.Status</td>
-                        <td><a class="btn btn-outline-success" asp-area="Admin" asp-controller="Orders" asp-action="OrderDetails" asp-route-id="@order.Id">Подробнее</a> </td>
+                        <td><a class="btn btn-outline-success" asp-area="Admin" asp-controller="Order" asp-action="Details" asp-route-orderId="@order.Id">Подробнее</a> </td>
                     </tr>
                     }
                 </tbody>
