@@ -10,9 +10,9 @@ namespace OnlineShopWebApp.Controllers
         {
             this.productsStorage = productsStorage;
         }
-        public IActionResult Index(int id)
+        public IActionResult Index(int productId)
         {
-            var product = productsStorage.TryGetById(id);
+            var product = productsStorage.TryGetById(productId);
             return View(product);
         }
     }
