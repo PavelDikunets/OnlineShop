@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OnlineShopWebApp.Models
+namespace OnlineShopWebApp.Areas.Admin.Models
 {
-    public class UserRegistrationInfo
+    public class UserLoginInfo
     {
         [Required(ErrorMessage = "Заполните поле")]
         [EmailAddress(ErrorMessage = "E-mail указан неверно")]
@@ -11,9 +11,6 @@ namespace OnlineShopWebApp.Models
         [Required(ErrorMessage = "Заполните поле")]
         [StringLength(20, MinimumLength = 6, ErrorMessage = "Пароль не может быть меньше 6 символов")]
         public string Password { get; set; }
-
-        [Required(ErrorMessage = "Заполните поле")]
-        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
-        public string ConfirmPassword { get; set; }
+        public bool IsRemember { get; set; }
     }
 }
