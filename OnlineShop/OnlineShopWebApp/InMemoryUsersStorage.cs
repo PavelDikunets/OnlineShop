@@ -7,19 +7,23 @@ namespace OnlineShopWebApp
 {
     public class InMemoryUsersStorage : IUsersStorage
     {
-        private readonly List<UserRegistrationInfo> users = new List<UserRegistrationInfo>();
-        public void Add(UserRegistrationInfo user)
+        private readonly List<UserAccount> users = new List<UserAccount>();
+        public void Add(UserAccount user)
         {
             users.Add(user);
         }
 
-        public List<UserRegistrationInfo> GetAll()
+        public List<UserAccount> GetAll()
         {
             return users;
         }
-        public UserRegistrationInfo TryGetById(Guid userId)
+        public UserAccount TryGetById(Guid userId)
         {
             return users.FirstOrDefault(x => x.Id == userId);
+        }
+        public UserAccount TryGetByName(string login)
+        {
+            return users.FirstOrDefault(x => x.Login == login);
         }
     }
 }
