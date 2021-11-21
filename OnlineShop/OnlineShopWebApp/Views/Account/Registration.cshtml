@@ -1,13 +1,14 @@
-﻿@model UserRegistrationInfo
+﻿@model UserAccount
 
 <form method="post">
     <div class="row">
-        <div class="col-12 text-center">
+        <div class="col text-center">
             <div>
                 <h3>Регистрация</h3>
             </div>
             <div>
                 <p>
+                    <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
                     <div>
                         <label asp-for="Login">Логин:</label><br />
                         <input asp-for="Login" size="30" placeholder="Example@example.com" /><br />
@@ -36,7 +37,7 @@
             <p>
                 <div>
                     <p>
-                        <button class="btn btn-dark w-25" type="submit" asp-controller="Authorization" asp-action="Registering">Зарегистрироваться</button>
+                        <button class="btn btn-dark w-25" type="submit" asp-controller="Account" asp-action="Registration">Зарегистрироваться</button>
                     </p>
                 </div>
             </p>
