@@ -22,18 +22,18 @@ namespace OnlineShopWebApp.Controllers
         {
             var product = productsStorage.TryGetById(productId);
             cartsStorage.Add(product, Constants.UserId);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
         public IActionResult DecreaseAmount(int productId)
         {
             var product = productsStorage.TryGetById(productId);
             cartsStorage.DecreaseAmount(product, Constants.UserId);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
         public IActionResult Clear()
         {
             cartsStorage.Clear(Constants.UserId);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }

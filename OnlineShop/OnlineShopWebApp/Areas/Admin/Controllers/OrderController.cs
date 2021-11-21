@@ -27,7 +27,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         public IActionResult UpdateStatus(Guid orderId, string status)
         {
             ordersStorage.UpdateStatus(orderId, status);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }

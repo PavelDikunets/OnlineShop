@@ -33,14 +33,14 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 rolesStorage.Add(role);
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             return View(role);
         }
         public IActionResult Remove(string roleName)
         {
             rolesStorage.Remove(roleName);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }
