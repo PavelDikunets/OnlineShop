@@ -8,11 +8,10 @@ namespace OnlineShopWebApp
     public class InMemoryUsersStorage : IUsersStorage
     {
         private readonly List<UserAccount> users = new List<UserAccount>();
-        public void Add(UserAccount user)
+        public void Add(UserAccount userAccount)
         {
-            users.Add(user);
+            users.Add(userAccount);
         }
-
         public List<UserAccount> GetAll()
         {
             return users;
@@ -24,6 +23,10 @@ namespace OnlineShopWebApp
         public UserAccount TryGetByName(string login)
         {
             return users.FirstOrDefault(x => x.Login == login);
+        }
+        public void Remove(UserAccount userAccount)
+        {
+            users.Remove(userAccount);
         }
     }
 }
