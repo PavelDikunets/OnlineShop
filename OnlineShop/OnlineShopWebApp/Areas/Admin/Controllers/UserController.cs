@@ -30,5 +30,28 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             var userAccount = usersStorage.TryGetById(userId);
             return View(userAccount);
         }
+        public IActionResult ChangePassword(string login)
+        {
+            var changePassword = new ChangePassword()
+            {
+                Login = login
+            };
+            return View(changePassword);
+        }
+
+        [HttpPost]
+        public IActionResult ChangePassword(ChangePassword changePassword)
+        {
+            if (changePassword.Login == changePassword.Password)
+            {
+                ModelState.AddModelError("", "Логин и пароль не должны совпадать!");
+            }
+            if (ModelState.IsValid)
+            {
+                usersStorage.ChangePassword(changePassword.Login, changePassword.Password);
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction(nameof(ChangePassword));
+        }
     }
 }
