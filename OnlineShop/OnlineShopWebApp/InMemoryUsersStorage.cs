@@ -16,7 +16,13 @@ namespace OnlineShopWebApp
         {
             return users;
         }
-        public UserAccount TryGetById(Guid userId)
+        public void Edit(UserAccount editedAccount)
+        {
+            var userAccount = TryGetById(editedAccount.Id);
+            users.Remove(userAccount);
+            users.Add(editedAccount);
+        }
+        public UserAccount TryGetById(int userId)
         {
             return users.FirstOrDefault(x => x.Id == userId);
         }
