@@ -28,5 +28,10 @@ namespace OnlineShopWebApp
         {
             users.Remove(userAccount);
         }
+        public void ChangePassword(string login, string newPassword)
+        {
+            var userAccount = TryGetByName(login);
+            userAccount.Password = newPassword;
+        }
     }
 }
