@@ -40,7 +40,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(UserAccount editedAccount)
         {
-            usersStorage.Update(editedAccount);
+            usersStorage.Edit(editedAccount);
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Remove(int userId)
