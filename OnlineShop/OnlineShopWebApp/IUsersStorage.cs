@@ -11,5 +11,6 @@ namespace OnlineShopWebApp
         UserAccount TryGetById(Guid userId);
         UserAccount TryGetByName(string name);
         void Remove(UserAccount userAccount);
+        void ChangePassword(string login, string newPassword);
     }
 }
