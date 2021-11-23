@@ -5,6 +5,10 @@ namespace OnlineShopWebApp.Models
 {
     public class UserAccount
     {
+        public UserAccount()
+        {
+            Id = Guid.NewGuid();
+        }
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = "Заполните поле")]
@@ -18,9 +22,8 @@ namespace OnlineShopWebApp.Models
         [Required(ErrorMessage = "Заполните поле")]
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         public string ConfirmPassword { get; set; }
-        public UserAccount()
-        {
-            Id = Guid.NewGuid();
-        }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Phone { get; set; }
     }
 }
