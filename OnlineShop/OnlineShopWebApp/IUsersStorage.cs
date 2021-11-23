@@ -8,9 +8,10 @@ namespace OnlineShopWebApp
     {
         void Add(UserAccount userAccount);
         List<UserAccount> GetAll();
-        UserAccount TryGetById(Guid userId);
+        UserAccount TryGetById(int userId);
         UserAccount TryGetByName(string name);
         void Remove(UserAccount userAccount);
+        void Edit(UserAccount editedAccount);
         void ChangePassword(string login, string newPassword);
     }
 }
