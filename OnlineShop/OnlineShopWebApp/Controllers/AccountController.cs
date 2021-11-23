@@ -18,22 +18,22 @@ namespace OnlineShopWebApp.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Login(UserLogin user)
+        public IActionResult Login(UserLogin userAccount)
         {
             if (!ModelState.IsValid)
             {
-                return View(user);
+                return View(userAccount);
             }
-            var userAccount = usersStorage.TryGetByName(user.Login);
+            var existUserAccount = usersStorage.TryGetByName(userAccount.Login);
             if (userAccount == null)
             {
                 ModelState.AddModelError("", "Такого пользователя не существует!");
-                return View(user);
+                return View(userAccount);
             }
-            if (userAccount.Password != user.Password)
+            if (existUserAccount.Password != userAccount.Password)
             {
                 ModelState.AddModelError("", "Логин и/или пароль неправильные!");
-                return View(user);
+                return View(userAccount);
             }
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
@@ -44,22 +44,24 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registration(UserAccount user)
+        public IActionResult Registration(UserAccount userAccount)
         {
-            if (user.Login == user.Password)
+            if (!ModelState.IsValid)
+            {
+                return View(userAccount);
+            }
+            if (userAccount.Login == userAccount.Password)
             {
                 ModelState.AddModelError("", "Логин и пароль не должны совпадать!");
+                return View(userAccount);
             }
-            if (ModelState.IsValid)
+            if (usersStorage.TryGetByName(userAccount.Login) != null)
             {
-                usersStorage.Add(new UserAccount
-                {
-                    Login = user.Login,
-                    Password = user.Password
-                });
-                return View("SuccessfulRegistration");
+                ModelState.AddModelError("", "Такой пользователь уже существует!");
+                return View(userAccount);
             }
-            return View(user);
+            usersStorage.Add(userAccount);
+            return View("SuccessfulRegistration");
         }
     }
 }
