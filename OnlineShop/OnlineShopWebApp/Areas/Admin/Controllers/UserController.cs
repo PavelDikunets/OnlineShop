@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShopWebApp.Models;
 using System;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
@@ -19,13 +20,36 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             var users = usersStorage.GetAll();
             return View(users);
         }
-        public IActionResult Remove(Guid userId)
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(UserAccount userAccount)
+        {
+            usersStorage.Add(userAccount);
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Edit(int userId)
+        {
+            var userAccount = usersStorage.TryGetById(userId);
+            return View(userAccount);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(UserAccount editedAccount)
+        {
+            usersStorage.Update(editedAccount);
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Remove(int userId)
         {
             var userAccount = usersStorage.TryGetById(userId);
             usersStorage.Remove(userAccount);
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Detail(Guid userId)
+        public IActionResult Detail(int userId)
         {
             var userAccount = usersStorage.TryGetById(userId);
             return View(userAccount);
