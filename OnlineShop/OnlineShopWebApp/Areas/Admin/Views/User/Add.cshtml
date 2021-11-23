@@ -1,0 +1,73 @@
+﻿@model UserAccount
+
+<form method="post">
+    <div class="row">
+        <div class="col text-center">
+            <div>
+                <h3>Добавление нового пользователя</h3>
+            </div>
+            <div>
+                <p>
+                    <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+                    <div>
+                        <label asp-for="Login">Логин:</label><br />
+                        <input asp-for="Login" size="30" placeholder="Example@example.com" /><br />
+                        <span style="color:lightcoral" asp-validation-for="Login" />
+                    </div>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <div>
+                        <label asp-for="Password">Пароль:</label><br />
+                        <input asp-for="Password" type="password" size="30" placeholder="Пароль" /><br />
+                        <span style="color:lightcoral" asp-validation-for="Password" />
+                    </div>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <div>
+                        <label asp-for="ConfirmPassword">Подтвердите пароль:</label><br />
+                        <input asp-for="ConfirmPassword" type="password" size="30" placeholder="Подтвердите пароль" /><br />
+                        <span style="color:lightcoral" asp-validation-for="ConfirmPassword" />
+                    </div>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <div>
+                        <label asp-for="LastName">Фамилия:</label><br />
+                        <input asp-for="LastName" size="30" placeholder="Иванов" /><br />
+                        <span style="color:lightcoral" asp-validation-for="LastName" />
+                    </div>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <div>
+                        <label asp-for="FirstName">Имя:</label><br />
+                        <input asp-for="FirstName" size="30" placeholder="Иван" /><br />
+                        <span style="color:lightcoral" asp-validation-for="FirstName" />
+                    </div>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <div>
+                        <label asp-for="Phone">Телефон:</label><br />
+                        <input asp-for="Phone" size="30" placeholder="+7 XXX XXX-XX-XX" /><br />
+                        <span style="color:lightcoral" asp-validation-for="Phone" />
+                    </div>
+                </p>
+            </div>
+            <p>
+                <div>
+                    <p>
+                        <button class="btn btn-dark w-25" type="submit" asp-area="Admin" asp-controller="User" asp-action="Add">Добавить</button>
+                    </p>
+                </div>
+            </p>
+        </div>
+    </div>
+</form>
