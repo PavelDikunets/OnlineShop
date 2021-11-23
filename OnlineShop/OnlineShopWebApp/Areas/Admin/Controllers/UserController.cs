@@ -28,6 +28,20 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Add(UserAccount userAccount)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(userAccount);
+            }
+            if (userAccount.Login == userAccount.Password)
+            {
+                ModelState.AddModelError("", "Логин и пароль не должны совпадать!");
+                return View(userAccount);
+            }
+            if (usersStorage.TryGetByName(userAccount.Login) != null)
+            {
+                ModelState.AddModelError("", "Такой пользователь уже существует!");
+                return View(userAccount);
+            }
             usersStorage.Add(userAccount);
             return RedirectToAction(nameof(Index));
         }
