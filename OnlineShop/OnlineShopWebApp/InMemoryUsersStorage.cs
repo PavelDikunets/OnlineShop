@@ -29,8 +29,9 @@ namespace OnlineShopWebApp
         {
             return users.FirstOrDefault(x => x.Login == login);
         }
-        public void Remove(UserAccount userAccount)
+        public void Remove(int userId)
         {
+            var userAccount = TryGetById(userId);
             users.Remove(userAccount);
         }
         public void ChangePassword(string login, string newPassword)
