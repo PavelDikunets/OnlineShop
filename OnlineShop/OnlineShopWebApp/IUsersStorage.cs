@@ -9,7 +9,7 @@ namespace OnlineShopWebApp
         List<UserAccount> GetAll();
         UserAccount TryGetById(int userId);
         UserAccount TryGetByName(string name);
-        void Remove(int userId);
+        void Remove(UserAccount userAccount);
         void Edit(UserAccount editedAccount);
         void ChangePassword(string login, string newPassword);
     }

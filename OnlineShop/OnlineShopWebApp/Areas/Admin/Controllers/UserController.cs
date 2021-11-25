@@ -58,7 +58,8 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         }
         public IActionResult Remove(int userId)
         {
-            usersStorage.Remove(userId);
+            var userAccount = usersStorage.TryGetById(userId);
+            usersStorage.Remove(userAccount);
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Detail(int userId)
