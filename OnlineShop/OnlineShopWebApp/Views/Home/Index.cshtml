@@ -1,4 +1,4 @@
-﻿@model List<Product>
+﻿@model List<ProductViewModel>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -8,7 +8,7 @@
     {
         <div class="col-3 card shadow text-center">
             <div class="card-body ">
-                <a style="color:black" href="/product/index/@product.Id">
+                <a style="color:black" asp-area="" asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">
                     <img class="card-img-top" src="/img/notebook.jpg" alt="Notebook" />
                     <h5>@product.Name</h5>
                 </a>
