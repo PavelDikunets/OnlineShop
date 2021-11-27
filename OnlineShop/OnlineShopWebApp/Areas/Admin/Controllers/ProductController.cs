@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
+using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 using System;
 using System.Collections.Generic;
@@ -20,37 +21,19 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var products = productsStorage.GetAll();
-            var productsViewModels = new List<ProductViewModel>();
-            foreach (var product in products)
-            {
-                var productViewModel = new ProductViewModel
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Cost = product.Cost,
-                    Description = product.Description
-                };
-                productsViewModels.Add(productViewModel);
-            }
-            return View(productsViewModels);
+            return View(Mapping.ToProductViewModels(products));
         }
         public IActionResult Edit(Guid productId)
         {
             var product = productsStorage.TryGetById(productId);
-            var productViewModel = new ProductViewModel
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Cost = product.Cost,
-                Description = product.Description
-            };
-            return View(productViewModel);
+            return View(Mapping.ToProductViewModel(product));
         }
         [HttpPost]
         public IActionResult Edit(ProductViewModel product)
         {
             var productDb = new Product
             {
+                Id = product.Id,
                 Name = product.Name,
                 Cost = product.Cost,
                 Description = product.Description
