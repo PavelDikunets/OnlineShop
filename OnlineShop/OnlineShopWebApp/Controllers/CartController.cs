@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
+using OnlineShopWebApp.Helpers;
 using System;
 
 namespace OnlineShopWebApp.Controllers
@@ -17,19 +18,19 @@ namespace OnlineShopWebApp.Controllers
         public IActionResult Index()
         {
             var cart = cartsStorage.TryGetByUserId(Constants.UserId);
-            return View(cart);
+            return View(Mapping.ToCartViewModel(cart));
         }
 
         public IActionResult Add(Guid productId)
         {
             var product = productsStorage.TryGetById(productId);
-           // cartsStorage.Add(product, Constants.UserId);
+            cartsStorage.Add(product, Constants.UserId);
             return RedirectToAction(nameof(Index));
         }
         public IActionResult DecreaseAmount(Guid productId)
         {
             var product = productsStorage.TryGetById(productId);
-            //cartsStorage.DecreaseAmount(product, Constants.UserId);
+            cartsStorage.DecreaseAmount(product, Constants.UserId);
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Clear()
