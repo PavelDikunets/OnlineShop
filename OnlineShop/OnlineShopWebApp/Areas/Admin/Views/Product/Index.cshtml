@@ -4,8 +4,10 @@
     <h3>Продукты</h3>
 </div>
 <div class="row">
-    @await Html.PartialAsync("AdminLeftMenu")
-    <div class="col">
+    <div class="col-md">
+        @await Html.PartialAsync("AdminLeftMenu")
+    </div>
+    <div class="col-md-10">
         <table class="table">
             <thread>
                 <tr>
@@ -26,10 +28,10 @@
                 }
             </tbody>
         </table>
-        <div class="col">
-            <div class="text-right">
-                <a class="btn btn-outline-dark" asp-area="Admin" asp-controller="Product" asp-action="Add" role="button">Добавить новый продукт</a>
-            </div>
+    </div>
+    <div class="col-md">
+        <div class="text-right">
+            <a class="btn btn-outline-dark" asp-area="Admin" asp-controller="Product" asp-action="Add" role="button">Добавить новый продукт</a>
         </div>
     </div>
 </div>
