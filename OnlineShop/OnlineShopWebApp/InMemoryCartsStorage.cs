@@ -14,7 +14,7 @@ namespace OnlineShopWebApp
             return carts.FirstOrDefault(x => x.UserId == userId);
         }
 
-        public void Add(Product product, string userId)
+        public void Add(ProductViewModel product, string userId)
         {
             var currentCart = TryGetByUserId(userId);
             if (currentCart == null)
@@ -53,7 +53,7 @@ namespace OnlineShopWebApp
                 }
             }
         }
-        public void DecreaseAmount(Product product, string userId)
+        public void DecreaseAmount(ProductViewModel product, string userId)
         {
             var currentCart = TryGetByUserId(userId);
             var currentCartItem = currentCart.Items.FirstOrDefault(x => x.Product.Id == product.Id);
