@@ -21,5 +21,10 @@ namespace OnlineShopWebApp.Models
         [StringLength(400, MinimumLength = 50, ErrorMessage = "Описание продукта не может быть меньше 50 символов")]
         [RegularExpression(@"[^`~!@#$%^&*_=+<>|\/?;№]+$", ErrorMessage = "Пожалуйста, для указания описания продукта не используйте следующие символы: ` ~ ! @ # $ % ^ & * _ = + | < > / ? ; № ")]
         public string Description { get; set; }
+        public string ImagePath { get; }
+        public ProductViewModel()
+        {
+            ImagePath = "/img/notebook.jpg";
+        }
     }
 }

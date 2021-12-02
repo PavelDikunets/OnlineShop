@@ -5,7 +5,7 @@
 
 <div class="row">
     @foreach (var product in Model)
-    {
+{
         <div class="col-md-3 mx-1 card shadow text-center">
             <div class="card-body ">
                 <a style="color:black"
@@ -13,7 +13,7 @@
                    asp-controller="Product"
                    asp-action="Index"
                    asp-route-productId="@product.Id">
-                    <img class="card-img-top" src="/img/notebook.jpg" alt="Notebook" />
+                    <img class="card-img-top" src="@product.ImagePath" alt="Notebook" />
                     <h5>@product.Name</h5>
                 </a>
                 <h6>Цена: @product.Cost руб.</h6>
@@ -30,7 +30,13 @@
                    asp-action="Add"
                    asp-route-productId="@product.Id"
                    role="button"></a>
+                <a class="fas fa-balance-scale" style="color:black"
+                   asp-area=""
+                   asp-controller="Compare"
+                   asp-action="Add"
+                   asp-route-productId="@product.Id"
+                   role="button"></a>
             </div>
         </div>
-    }
+}
 </div>
