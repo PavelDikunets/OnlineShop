@@ -10,11 +10,9 @@ namespace OnlineShop.Db.Models
         public decimal Cost { get; set; }
         public string Description { get; set; }
         public List<CartItem> CartItems { get; set; }
-        public List<FavoriteProduct> FavoriteProducts { get; set; }
         public Product()
         {
             CartItems = new List<CartItem>();
-            FavoriteProducts = new List<FavoriteProduct>();
         }
     }
 }
