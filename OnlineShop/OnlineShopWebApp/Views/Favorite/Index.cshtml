@@ -1,0 +1,61 @@
+﻿@model List<ProductViewModel>
+@{
+    ViewData["Title"] = "Избранное";
+}
+
+@if (Model.Count == 0)
+{
+    <h4>Здесь пока нет избранных товаров...</h4>
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-3 mx-1 card shadow text-center">
+                <div class="card-body ">
+
+                    <a style="color:black"
+                       asp-area=""
+                       asp-controller="Product"
+                       asp-action="Index"
+                       asp-route-productId="@product.Id">
+                        <img class="card-img-top" src="/img/notebook.jpg" alt="Notebook" />
+                        <h5>@product.Name</h5>
+                    </a>
+
+                    <h6>Цена: @product.Cost руб.</h6>
+
+                </div>
+
+                <div class="card-footer">
+                    <a class="btn btn-outline-dark"
+                       asp-area=""
+                       asp-controller="Cart"
+                       asp-action="Add"
+                       asp-route-productId="@product.Id"
+                       role="button">Добавить в корзину</a>
+
+                    <a class="btn btn-outline-danger my-2"
+                       asp-area=""
+                       asp-controller="Favorite"
+                       asp-action="Remove"
+                       asp-route-productId="@product.Id"
+                       role="button">Убрать из избранного</a>
+                </div>
+            </div>
+        }
+
+        @if (Model.Count > 0)
+        {
+            <div class="text-right">
+                <a class="btn btn-outline-danger"
+                   asp-area=""
+                   asp-controller="Favorite"
+                   asp-action="Clear"
+                   role="button">Очистить избранное</a>
+            </div>
+        }
+    </div>
+</div>
+
