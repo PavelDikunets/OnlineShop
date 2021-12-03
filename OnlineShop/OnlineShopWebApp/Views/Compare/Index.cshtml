@@ -1,12 +1,14 @@
 ﻿@model List<ProductViewModel>
-
+@{
+    ViewData["Title"] = "Сравнение товаров";
+}
 
 <div class="container">
     <div class="row">
 
         @foreach (var product in Model)
         {
-            <div class="col-md">
+            <div class="col-md-4 text-center">
                 <table class="table-bordered">
                     <thead>
                         <tr>
@@ -37,7 +39,7 @@
                                        asp-controller="Compare"
                                        asp-action="Remove"
                                        asp-route-productId="@product.Id">
-                                        Убрать из сравнения
+                                        Убрать
                                     </a>
                                 </div>
                             </td>
@@ -51,7 +53,7 @@
                asp-area=""
                asp-controller="Compare"
                asp-action="Clear">
-                Очистить сравнения
+                Очистить всё
             </a>
         </div>
     </div>
