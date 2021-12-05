@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShop.Db.Models;
-using OnlineShopWebApp.Helpers;
-using OnlineShopWebApp.Models;
 using System;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
@@ -12,25 +9,25 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
     {
         private readonly IOrdersStorage ordersStorage;
 
-        public OrderController(IOrdersStorage ordersStorage)
+        public OrderController(IProductsStorage productsStorage, IOrdersStorage ordersStorage, IRolesStorage rolesStorage)
         {
             this.ordersStorage = ordersStorage;
         }
         public IActionResult Index()
         {
             var orders = ordersStorage.GetAll();
-            return View(Mapping.ToOrderViewModels(orders));
+            return View(orders);
         }
         public IActionResult Details(Guid orderId)
         {
-            var order = ordersStorage.TryGetById(orderId);
-            return View(Mapping.ToOrderViewModel(order));
+            var order = ordersStorage.TryGetByOrderId(orderId);
+            return View(order);
         }
 
         [HttpPost]
-        public IActionResult UpdateStatus(Guid orderId, OrderStatusViewModel status)
+        public IActionResult UpdateStatus(Guid orderId, string status)
         {
-            ordersStorage.UpdateStatus(orderId, (OrderStatus)(int)status);
+            ordersStorage.UpdateStatus(orderId, status);
             return RedirectToAction(nameof(Index));
         }
     }

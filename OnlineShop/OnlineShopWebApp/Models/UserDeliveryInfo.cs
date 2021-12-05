@@ -2,7 +2,7 @@
 
 namespace OnlineShopWebApp.Models
 {
-    public class UserDeliveryInfoViewModel
+    public class UserDeliveryInfo
     {
         [Required(ErrorMessage = "Заполните поле")]
         [StringLength(20, MinimumLength = 2, ErrorMessage = "Имя не может быть меньше двух букв")]

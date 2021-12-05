@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShop.Db.Models;
 using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 
@@ -22,21 +21,23 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Check_out(UserDeliveryInfoViewModel user)
+        public IActionResult Check_out(UserDeliveryInfo user)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View("Index", user);
+                var currentCart = cartsStorage.TryGetByUserId(Constants.UserId);
+                var cartViewModel = Mapping.ToCartViewModel(currentCart);
+                var order = new Order
+                {
+                    User = user,
+                    Items = cartViewModel.Items
+                };
+                ordersStorage.Add(order);
+                cartsStorage.Clear(Constants.UserId);
+                return View();
+
             }
-            var currentCart = cartsStorage.TryGetByUserId(Constants.UserId);
-            var orderDb = new Order
-            {
-                UserDeliveryInfo = Mapping.ToUserDeliveryInfo(user),
-                Items = currentCart.Items
-            };
-            ordersStorage.Add(orderDb);
-            cartsStorage.Clear(Constants.UserId);
-            return View();
+            return View(user);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using OnlineShop.Db.Models;
 using OnlineShopWebApp.Models;
-using System;
 using System.Collections.Generic;
 
 namespace OnlineShopWebApp.Helpers
@@ -37,57 +36,6 @@ namespace OnlineShopWebApp.Helpers
                 Id = cart.Id,
                 UserId = cart.UserId,
                 Items = ToCartItemViewModels(cart.Items)
-            };
-        }
-
-        public static List<OrderViewModel> ToOrderViewModels(List<Order> orders)
-        {
-            var ordersViewModels = new List<OrderViewModel>();
-            foreach (var order in orders)
-            {
-                ordersViewModels.Add(ToOrderViewModel(order));
-            }
-            return ordersViewModels;
-        }
-        public static OrderViewModel ToOrderViewModel(Order orderDb)
-        {
-            return new OrderViewModel
-            {
-                Id = orderDb.Id,
-                CreateDateTime = orderDb.CreateDateTime,
-                UserDeliveryInfo = ToUserDeliveryInfoViewModel(orderDb.UserDeliveryInfo),
-                Items = ToCartItemViewModels(orderDb.Items),
-                Status = (OrderStatusViewModel)(int)orderDb.Status
-            };
-        }
-        public static UserDeliveryInfoViewModel ToUserDeliveryInfoViewModel(UserDeliveryInfo userDb)
-        {
-            if (userDb == null)
-            {
-                return null;
-            }
-            return new UserDeliveryInfoViewModel
-            {
-                Address = userDb.Address,
-                City = userDb.City,
-                Comments = userDb.Comments,
-                FirstName = userDb.FirstName,
-                LastName = userDb.LastName,
-                Phone = userDb.Phone,
-                ZipCode = userDb.ZipCode
-            };
-        }
-        public static UserDeliveryInfo ToUserDeliveryInfo(UserDeliveryInfoViewModel user)
-        {
-            return new UserDeliveryInfo
-            {
-                Address = user.Address,
-                City = user.City,
-                Comments = user.Comments,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Phone = user.Phone,
-                ZipCode = user.ZipCode
             };
         }
         public static List<CartItemViewModel> ToCartItemViewModels(List<CartItem> cartDbItems)
