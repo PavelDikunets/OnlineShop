@@ -10,6 +10,7 @@ namespace OnlineShop.Db
         public DbSet<CartItem> Items { get; set; }
         public DbSet<FavoriteProduct> FavoriteProducts { get; set; }
         public DbSet<CompareProduct> CompareProducts { get; set; }
+        public DbSet<Order> Orders { get; set; }
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)
         {
