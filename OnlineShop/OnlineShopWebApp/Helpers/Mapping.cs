@@ -1,6 +1,5 @@
 ﻿using OnlineShop.Db.Models;
 using OnlineShopWebApp.Models;
-using System;
 using System.Collections.Generic;
 
 namespace OnlineShopWebApp.Helpers

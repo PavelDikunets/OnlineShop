@@ -4,7 +4,6 @@ using OnlineShop.Db.Models;
 using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 using System;
-using System.Collections.Generic;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {

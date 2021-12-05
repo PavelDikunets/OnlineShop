@@ -4,19 +4,19 @@ namespace OnlineShopWebApp.Models
 {
     public enum OrderStatusViewModel
     {
-        [Display(Name ="Создан")]
+        [Display(Name = "Создан")]
         Created,
 
-        [Display(Name ="Обработан")]
+        [Display(Name = "Обработан")]
         Processed,
 
-        [Display(Name ="В пути")]
+        [Display(Name = "В пути")]
         Delivering,
 
-        [Display(Name ="Отправлен")]
+        [Display(Name = "Отправлен")]
         Delivered,
 
-        [Display(Name ="Отменен")]
+        [Display(Name = "Отменен")]
         Canceled
     }
 }
