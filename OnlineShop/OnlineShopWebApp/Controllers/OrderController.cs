@@ -31,7 +31,7 @@ namespace OnlineShopWebApp.Controllers
             var currentCart = cartsStorage.TryGetByUserId(Constants.UserId);
             var orderDb = new Order
             {
-                UserDeliveryInfo = Mapping.ToUserDeliveryInfo(user),
+                UserDeliveryInfo = user.ToUserDeliveryInfo(),
                 Items = currentCart.Items
             };
             ordersStorage.Add(orderDb);

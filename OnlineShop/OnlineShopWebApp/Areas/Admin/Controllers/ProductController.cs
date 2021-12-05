@@ -4,6 +4,7 @@ using OnlineShop.Db.Models;
 using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 using System;
+using System.Linq;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
@@ -20,13 +21,15 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var products = productsStorage.GetAll();
-            return View(Mapping.ToProductViewModels(products));
+            return View(products.Select(x => x.ToProductViewModel()).ToList());
         }
+
         public IActionResult Edit(Guid productId)
         {
             var product = productsStorage.TryGetById(productId);
-            return View(Mapping.ToProductViewModel(product));
+            return View(product.ToProductViewModel());
         }
+
         [HttpPost]
         public IActionResult Edit(ProductViewModel product)
         {
@@ -40,11 +43,13 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             productsStorage.Update(productDb);
             return RedirectToAction(nameof(Index));
         }
+
         public IActionResult Remove(Guid productId)
         {
             productsStorage.Remove(productId);
             return RedirectToAction(nameof(Index));
         }
+
         public IActionResult Add()
         {
             return View();

@@ -2,6 +2,7 @@
 using OnlineShop.Db;
 using OnlineShopWebApp.Helpers;
 using System;
+using System.Linq;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -19,7 +20,7 @@ namespace OnlineShopWebApp.Controllers
         public IActionResult Index()
         {
             var products = favoriteProductStorage.GetAll(Constants.UserId);
-            return View(Mapping.ToProductViewModels(products));
+            return View(products.Select(x => x.ToProductViewModel()).ToList());
         }
 
         public IActionResult Add(Guid productId)

@@ -3,6 +3,7 @@ using OnlineShop.Db.Models;
 using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 using System;
+using System.Linq;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
@@ -18,12 +19,12 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var orders = ordersStorage.GetAll();
-            return View(Mapping.ToOrderViewModels(orders));
+            return View(orders.Select(x => x.ToOrderViewModel()).ToList());
         }
         public IActionResult Details(Guid orderId)
         {
             var order = ordersStorage.TryGetById(orderId);
-            return View(Mapping.ToOrderViewModel(order));
+            return View(order.ToOrderViewModel());
         }
 
         [HttpPost]

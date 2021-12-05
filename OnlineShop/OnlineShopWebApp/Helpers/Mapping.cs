@@ -1,70 +1,51 @@
 ﻿using OnlineShop.Db.Models;
 using OnlineShopWebApp.Models;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineShopWebApp.Helpers
 {
     public static class Mapping
     {
-        public static List<ProductViewModel> ToProductViewModels(List<Product> products)
-        {
-            var productsViewModels = new List<ProductViewModel>();
-            foreach (var product in products)
-            {
-                productsViewModels.Add(ToProductViewModel(product));
-            }
-            return productsViewModels;
-        }
-        public static ProductViewModel ToProductViewModel(Product product)
+
+        public static ProductViewModel ToProductViewModel(this Product productDb)
         {
             return new ProductViewModel
             {
-                Id = product.Id,
-                Name = product.Name,
-                Cost = product.Cost,
-                Description = product.Description
+                Id = productDb.Id,
+                Name = productDb.Name,
+                Cost = productDb.Cost,
+                Description = productDb.Description
             };
         }
-        public static CartViewModel ToCartViewModel(Cart cart)
+
+        public static CartViewModel ToCartViewModel(this Cart cartDb)
         {
-            if (cart == null)
+            if (cartDb == null)
             {
                 return null;
             }
             return new CartViewModel
             {
-                Id = cart.Id,
-                UserId = cart.UserId,
-                Items = ToCartItemViewModels(cart.Items)
+                Id = cartDb.Id,
+                UserId = cartDb.UserId,
+                Items = cartDb.Items.Select(x => x.ToCartItemViewModel()).ToList()
             };
         }
 
-        public static List<OrderViewModel> ToOrderViewModels(List<Order> orders)
-        {
-            var ordersViewModels = new List<OrderViewModel>();
-            foreach (var order in orders)
-            {
-                ordersViewModels.Add(ToOrderViewModel(order));
-            }
-            return ordersViewModels;
-        }
-        public static OrderViewModel ToOrderViewModel(Order orderDb)
+        public static OrderViewModel ToOrderViewModel(this Order orderDb)
         {
             return new OrderViewModel
             {
                 Id = orderDb.Id,
                 CreateDateTime = orderDb.CreateDateTime,
-                UserDeliveryInfo = ToUserDeliveryInfoViewModel(orderDb.UserDeliveryInfo),
-                Items = ToCartItemViewModels(orderDb.Items),
+                UserDeliveryInfo = orderDb.UserDeliveryInfo.ToUserDeliveryInfoViewModel(),
+                Items = orderDb.Items.Select(x => x.ToCartItemViewModel()).ToList(),
                 Status = (OrderStatusViewModel)(int)orderDb.Status
             };
         }
-        public static UserDeliveryInfoViewModel ToUserDeliveryInfoViewModel(UserDeliveryInfo userDb)
+
+        public static UserDeliveryInfoViewModel ToUserDeliveryInfoViewModel(this UserDeliveryInfo userDb)
         {
-            if (userDb == null)
-            {
-                return null;
-            }
             return new UserDeliveryInfoViewModel
             {
                 Address = userDb.Address,
@@ -76,7 +57,8 @@ namespace OnlineShopWebApp.Helpers
                 ZipCode = userDb.ZipCode
             };
         }
-        public static UserDeliveryInfo ToUserDeliveryInfo(UserDeliveryInfoViewModel user)
+
+        public static UserDeliveryInfo ToUserDeliveryInfo(this UserDeliveryInfoViewModel user)
         {
             return new UserDeliveryInfo
             {
@@ -89,20 +71,15 @@ namespace OnlineShopWebApp.Helpers
                 ZipCode = user.ZipCode
             };
         }
-        public static List<CartItemViewModel> ToCartItemViewModels(List<CartItem> cartDbItems)
+
+        public static CartItemViewModel ToCartItemViewModel(this CartItem cartItemDb)
         {
-            var cartItems = new List<CartItemViewModel>();
-            foreach (var cartDbItem in cartDbItems)
+            return new CartItemViewModel
             {
-                var cartItem = new CartItemViewModel
-                {
-                    Id = cartDbItem.Id,
-                    Amount = cartDbItem.Amount,
-                    Product = ToProductViewModel(cartDbItem.Product)
-                };
-                cartItems.Add(cartItem);
-            }
-            return cartItems;
+                Id = cartItemDb.Id,
+                Amount = cartItemDb.Amount,
+                Product = cartItemDb.Product.ToProductViewModel()
+            };
         }
     }
 }
