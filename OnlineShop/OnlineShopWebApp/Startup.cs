@@ -28,7 +28,7 @@ namespace OnlineShopWebApp
             services.AddTransient<IProductsStorage, ProductsDbStorage>();
             services.AddTransient<IFavoriteStorage, FavoriteDbStorage>();
             services.AddTransient<ICompareStorage, CompareDbStorage>();
-            services.AddSingleton<IOrdersStorage, InMemoryOrdersStorage>();
+            services.AddTransient<IOrdersStorage, OrdersDbStorage>();
             services.AddSingleton<IRolesStorage, InMemoryRolesStorage>();
             services.AddSingleton<IUsersStorage, InMemoryUsersStorage>();
             services.AddControllersWithViews();
