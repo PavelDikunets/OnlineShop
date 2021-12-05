@@ -29,12 +29,16 @@ namespace OnlineShopWebApp
         }
         public Order TryGetById(Guid id)
         {
-            return databaseContext.Orders.FirstOrDefault(order => order.Id == id);
+            return databaseContext.Orders.Include(x => x.UserDeliveryInfo)
+                                         .Include(x => x.Items)
+                                         .ThenInclude(x => x.Product).FirstOrDefault(x => x.Id == id);
+
         }
         public void UpdateStatus(Guid orderId, OrderStatus status)
         {
             var order = TryGetById(orderId);
             order.Status = status;
+            databaseContext.SaveChanges();
         }
     }
 }
