@@ -6,37 +6,45 @@
 }
 else
 {
-    <div class="row">
-        <div class="col">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Наименование</th>
-                        <th>Количество</th>
-                        <th>Цена</th>
-                        <th>Стоимость</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Items)
-                    {
+    <div class="container">
+        <div class="row">
+            <div class="col-md">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>@item.Product.Name</td>
-                            <td><a class="btn btn-dark" asp-controller="Cart" asp-action="DecreaseAmount" asp-route-productId="@item.Product.Id" role="button">-</a> @item.Amount шт. <a class="btn btn-dark" asp-controller="Cart" asp-action="Add" asp-route-productId="@item.Product.Id" role="button">+</a></td>
-                            <td>@item.Product.Cost руб.</td>
-                            <td>@item.Cost руб.</td>
+                            <th>Наименование</th>
+                            <th>Количество</th>
+                            <th>Цена</th>
+                            <th>Стоимость</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
-            <div class="text-right">
-                <h5>Итого:</h5>
-                <h3>@Model.Cost руб.</h3>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>@item.Product.Name</td>
+                                <td><a class="btn btn-outline-danger" asp-controller="Cart" asp-action="DecreaseAmount" asp-route-productId="@item.Product.Id" role="button">-</a> @item.Amount шт. <a class="btn btn-outline-success" asp-controller="Cart" asp-action="Add" asp-route-productId="@item.Product.Id" role="button">+</a></td>
+                                <td>@item.Product.Cost руб.</td>
+                                <td>@item.Cost руб.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
-            <div class="text-center">
-                <a class="btn btn-dark" asp-controller="Home" asp-action="Index" role="button">Продолжить покупки</a>
-                <a class="btn btn-danger" asp-controller="Cart" asp-action="Clear">Очистить корзину</a>
-                <a class="btn btn-success" asp-controller="Order" asp-action="Index" role="button">Оформить заказ</a>
+            <div class="row text-right">
+                <div class="col-md">
+                    <h5>Итого:</h5>
+                    <h3>@Model.Cost руб.</h3>
+                </div>
+            </div>
+            <div class="row text-right">
+                <div class="col-md float-right">
+                    <div class="btn-group">
+                        <a class="btn btn-outline-dark" asp-controller="Home" asp-action="Index" role="button">Продолжить покупки</a>
+                        <a class="btn btn-outline-danger" asp-controller="Cart" asp-action="Clear">Очистить корзину</a>
+                        <a class="btn btn-outline-success" asp-controller="Order" asp-action="Index" role="button">Оформить заказ</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
