@@ -21,18 +21,18 @@
                 </div>
                 <div class="card-footer">
                     <div class="btn-group">
-                        <a class="btn btn-outline-dark"
+                        <a class="btn add-cart-btn-outline-success"
                            asp-controller="Cart"
                            asp-action="Add"
                            asp-route-productId="@product.Id"
                            role="button"><i class="fas fa-cart-plus"></i> Добавить в корзину</a>
-                        <a class="btn btn-outline-dark"
+                        <a class="btn add-favorite-btn-outline-dark"
                            asp-area=""
                            asp-controller="Favorite"
                            asp-action="Add"
                            asp-route-productId="@product.Id"
                            role="button"><i class="fas fa-star"></i></a>
-                        <a class="btn btn-outline-dark"
+                        <a class="btn add-compare-btn-outline-dark"
                            asp-area=""
                            asp-controller="Compare"
                            asp-action="Add"
