@@ -2766,6 +2766,21 @@ fieldset:disabled a.btn {
   border-color: #28a745;
 }
 
+.add-cart-btn-outline-success {
+    color: black;
+    border-color: black;
+}
+
+.add-cart-btn-outline-success:hover {
+    color: #fff;
+    background-color: darkseagreen;
+    border-color: black;
+}
+
+.add-cart-btn-outline-success:focus, .btn-outline-success.focus {
+    box-shadow: 0 0 0 0.2rem rgba(143, 188, 143, 0.5);
+}
+
 .btn-outline-success:focus, .btn-outline-success.focus {
   box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
 }
@@ -2924,6 +2939,34 @@ fieldset:disabled a.btn {
   color: #fff;
   background-color: #343a40;
   border-color: #343a40;
+}
+
+.add-favorite-btn-outline-dark {
+    color: #343a40;
+    border-color: #343a40;
+}
+
+.add-favorite-btn-outline-dark:hover {
+    color: orange;
+    background-color: antiquewhite;
+    border-color: black;
+}
+.add-favorite-btn-outline-dark:focus, .btn-outline-dark.focus {
+    box-shadow: 0 0 0 0.2rem rgba(250, 235, 215, 0.5);
+}
+
+.add-compare-btn-outline-dark {
+    color: #343a40;
+    border-color: #343a40;
+}
+
+.add-compare-btn-outline-dark:hover {
+    color: white;
+    background-color: darkgrey;
+    border-color: black;
+}
+.add-compare-btn-outline-dark:focus, .btn-outline-dark.focus {
+    box-shadow: 0 0 0 0.2rem rgba(187, 187, 187, 0.5);
 }
 
 .btn-outline-dark:focus, .btn-outline-dark.focus {
