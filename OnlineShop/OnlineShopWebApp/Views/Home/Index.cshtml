@@ -14,7 +14,7 @@
                        asp-controller="Product"
                        asp-action="Index"
                        asp-route-productId="@product.Id">
-                        <img class="card-img-top" src="@product.ImagePath" alt="Notebook" />
+                        <img class="card-img-top" src="@product.ImagePath" style="max-width: 100%"  alt="Notebook" />
                         <h5>@product.Name</h5>
                     </a>
                     <h6>Цена: @product.Cost руб.</h6>
