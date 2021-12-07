@@ -14,7 +14,8 @@ namespace OnlineShopWebApp.Helpers
                 Id = productDb.Id,
                 Name = productDb.Name,
                 Cost = productDb.Cost,
-                Description = productDb.Description
+                Description = productDb.Description,
+                ImagePath = productDb.ImagePath
             };
         }
 
