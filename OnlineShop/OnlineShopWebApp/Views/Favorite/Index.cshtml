@@ -20,7 +20,7 @@
                        asp-controller="Product"
                        asp-action="Index"
                        asp-route-productId="@product.Id">
-                        <img class="card-img-top" src="/img/notebook.jpg" alt="Notebook" />
+                        <img class="card-img-top" src="@product.ImagePath" style="max-width:stretch" alt="Notebook" />
                         <h5>@product.Name</h5>
                     </a>
 
@@ -29,19 +29,25 @@
                 </div>
 
                 <div class="card-footer">
-                    <a class="btn btn-outline-dark"
+                    <a class="btn add-cart-btn-outline-success"
                        asp-area=""
                        asp-controller="Cart"
                        asp-action="Add"
                        asp-route-productId="@product.Id"
-                       role="button">Добавить в корзину</a>
+                       role="button">
+                        <i class="bi bi-cart-plus-fill"></i>
+                        Добавить в корзину
+                    </a>
 
                     <a class="btn btn-outline-danger my-2"
                        asp-area=""
                        asp-controller="Favorite"
                        asp-action="Remove"
                        asp-route-productId="@product.Id"
-                       role="button">Убрать</a>
+                       role="button">
+                        <i class="bi bi-dash-circle"></i>
+                        Убрать
+                    </a>
                 </div>
             </div>
         }
@@ -53,7 +59,10 @@
                    asp-area=""
                    asp-controller="Favorite"
                    asp-action="Clear"
-                   role="button">Очистить всё</a>
+                   role="button">
+                    <i class="bi bi-x-circle"></i>
+                    Очистить всё
+                </a>
             </div>
         }
     </div>
