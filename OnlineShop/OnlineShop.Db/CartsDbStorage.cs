@@ -75,6 +75,11 @@ namespace OnlineShop.Db
         public void Clear(string userId)
         {
             var currentCart = TryGetByUserId(userId);
+            var currentItems = currentCart.Items.ToList();
+            foreach (var item in currentItems)
+            {
+                databaseContext.Items.Remove(item);
+            }
             databaseContext.Carts.Remove(currentCart);
             databaseContext.SaveChanges();
         }
