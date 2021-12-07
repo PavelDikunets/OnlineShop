@@ -3,58 +3,92 @@
     ViewData["Title"] = "Сравнение товаров";
 }
 
-<div class="container">
-    <div class="row">
-
-        @foreach (var product in Model)
-        {
-            <div class="col-md-4 text-center">
+@if (Model.Count == 0)
+{
+    <h4>Здесь пока нет товаров для сравнения...</h4>
+}
+@if (Model.Count == 1)
+{
+    <h4>Добавьте ещё один продукт для сравнения</h4>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md text-center">
                 <table class="table-bordered">
                     <thead>
                         <tr>
-                            <th>@product.Name</th>
+                            @foreach (var product in Model)
+                            {
+                                <th>@product.Name</th>
+                            }
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
-                                <img src=@product.ImagePath style="max-width: 40%" />
-                                <br />
-                                Цена: @product.Cost
-                                <br />
-                                <br />
-                                Описание: @product.Description
-                                <br />
-                                <br />
-                                <div class="text-center">
-                                    <a class="btn btn-outline-success"
-                                       asp-area=""
-                                       asp-controller="Cart"
-                                       asp-action="Add"
-                                       asp-route-productId="@product.Id">
-                                        Добавить в корзину
-                                    </a>
-                                    <a class="btn btn-outline-danger"
-                                       asp-area=""
-                                       asp-controller="Compare"
-                                       asp-action="Remove"
-                                       asp-route-productId="@product.Id">
-                                        Убрать
-                                    </a>
-                                </div>
-                            </td>
+                            @foreach (var product in Model)
+                            {
+                                <td><img src=@product.ImagePath style="max-width:100%"></td>
+                            }
+                        </tr>
+                        <tr>
+                            @foreach (var product in Model)
+                            {
+                                <td>@product.Cost руб.</td>
+                            }
+                        </tr>
+                        <tr>
+                            @foreach (var product in Model)
+                            {
+                                <td>@product.Description</td>
+                            }
+                        </tr>
+                        <tr>
+                            @foreach (var product in Model)
+                            {
+                                <td>
+                                    <div class="btn btn-group">
+                                        <a class="btn add-cart-btn-outline-success"
+                                           asp-area=""
+                                           asp-controller="Cart"
+                                           asp-action="Add"
+                                           asp-route-productId="@product.Id">
+                                            <i class="bi bi-cart-plus-fill"></i>
+                                            Добавить в корзину
+                                        </a>
+                                        <a class="btn btn-outline-danger"
+                                           asp-area=""
+                                           asp-controller="Compare"
+                                           asp-action="Remove"
+                                           asp-route-productId="@product.Id">
+                                            <i class="bi bi-dash-circle"></i>
+                                            Убрать
+                                        </a>
+                                    </div>
+                                </td>
+                            }
                         </tr>
                     </tbody>
                 </table>
             </div>
-        }
-        <div class="text-right">
-            <a class="btn btn-outline-danger"
-               asp-area=""
-               asp-controller="Compare"
-               asp-action="Clear">
-                Очистить всё
-            </a>
         </div>
     </div>
-</div>
+
+    if (Model.Count >= 2)
+    {
+        <div class="container">
+            <div class="row my-2">
+                <div class="col-md text-right">
+                    <a class="btn btn-outline-danger"
+                       asp-area=""
+                       asp-controller="Compare"
+                       asp-action="Clear">
+                        <i class="bi bi-x-circle"></i>
+                        Очистить всё
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+}
