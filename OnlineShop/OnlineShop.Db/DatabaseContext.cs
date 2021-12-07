@@ -28,7 +28,7 @@ namespace OnlineShop.Db
                     Name = "Ноутбук Xiaomi Mi Notebook Air 13.3\"",
                     Cost = 79900,
                     Description = "Процессор и память:\nПроцессор: Intel i5-8250\nКоличество ядер: Quad-Core\nЧастота: 3.4 ГГц\nОперативная память: 8 Гб\nВидеокарта: GeForce MX150 VRAM GDDR5 объемом 2 ГБ\n\nДисплей:\nДиагональ экрана: 13.3\nРазрешение дисплея: 1920 x 1080\n\nВнешний вид:\nШирина (мм): 210,9\nТолщина (мм): 14,8\nДлина (мм): 309,6\nВес (г): 1300",
-                    ImagePath = "/img/xiaomi_mi_ notebook_air_13_3.jpg"
+                    ImagePath = "/img/xiaomi_mi_notebook_air_13_3.jpg"
                 },
                 new Product
                 {

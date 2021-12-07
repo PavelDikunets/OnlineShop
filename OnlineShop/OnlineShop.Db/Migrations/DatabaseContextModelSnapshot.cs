@@ -13,7 +13,6 @@ namespace OnlineShop.Db.Migrations
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
-#pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.12")
@@ -147,15 +146,15 @@ namespace OnlineShop.Db.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d33bd802-9f3e-4e58-8e11-bab67d0716c8"),
+                            Id = new Guid("4577fea3-f151-4339-bf6a-178844979732"),
                             Cost = 79900m,
                             Description = "Процессор и память:\nПроцессор: Intel i5-8250\nКоличество ядер: Quad-Core\nЧастота: 3.4 ГГц\nОперативная память: 8 Гб\nВидеокарта: GeForce MX150 VRAM GDDR5 объемом 2 ГБ\n\nДисплей:\nДиагональ экрана: 13.3\nРазрешение дисплея: 1920 x 1080\n\nВнешний вид:\nШирина (мм): 210,9\nТолщина (мм): 14,8\nДлина (мм): 309,6\nВес (г): 1300",
-                            ImagePath = "/img/xiaomi_mi_ notebook_air_13_3.jpg",
+                            ImagePath = "/img/xiaomi_mi_notebook_air_13_3.jpg",
                             Name = "Ноутбук Xiaomi Mi Notebook Air 13.3\""
                         },
                         new
                         {
-                            Id = new Guid("17863298-63a0-4469-b83d-cd973700f6b6"),
+                            Id = new Guid("e0137362-4ab1-4d30-b56f-4aaa904ab5c9"),
                             Cost = 81990m,
                             Description = "Процессор и память:\nПроцессор: Intel I5-1135G7\nКоличество ядер: Quad-Core\nЧастота: 2.4 ГГц\nОперативная память: 8 Гб\nВидеокарта: Intel Iris Xe Graphics\n\nДисплей:\nДиагональ экрана: 13.3\nРазрешение дисплея: 1920 x 1080\n\nВнешний вид:\nШирина (мм): 210,6\nТолщина (мм): 16,9\nДлина (мм): 309,9\nВес (г): 1200",
                             ImagePath = "/img/asus_expertbook_B5.png",
@@ -163,7 +162,7 @@ namespace OnlineShop.Db.Migrations
                         },
                         new
                         {
-                            Id = new Guid("fb012b0b-af54-4a46-b33a-2d31617c1e7a"),
+                            Id = new Guid("8d4809bd-25ed-4b69-a6e9-14e5e2018d29"),
                             Cost = 35990m,
                             Description = "Процессор и память:\nКоличество ядер процессора: Dual-Core\nЧастота: 3.0ГГц\nОперативная память: 8 Гб\nВидеокарта: Intel UHD Graphics\n\nДисплей:\nДиагональ экрана: 15.6\nРазрешение дисплея: 1920 x 1080\n\nВнешний вид:\nШирина (мм): 363.96\nТолщина (мм): 19\nДлина (мм): 249\nВес (г): 1780",
                             ImagePath = "/img/dell_vostro_3500_15_6.jpg",
@@ -261,7 +260,6 @@ namespace OnlineShop.Db.Migrations
                 {
                     b.Navigation("CartItems");
                 });
-#pragma warning restore 612, 618
         }
     }
 }

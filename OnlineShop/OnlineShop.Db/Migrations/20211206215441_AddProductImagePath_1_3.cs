@@ -31,7 +31,7 @@ namespace OnlineShop.Db.Migrations
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "Cost", "Description", "ImagePath", "Name" },
-                values: new object[] { new Guid("d33bd802-9f3e-4e58-8e11-bab67d0716c8"), 79900m, "Процессор и память:\nПроцессор: Intel i5-8250\nКоличество ядер: Quad-Core\nЧастота: 3.4 ГГц\nОперативная память: 8 Гб\nВидеокарта: GeForce MX150 VRAM GDDR5 объемом 2 ГБ\n\nДисплей:\nДиагональ экрана: 13.3\nРазрешение дисплея: 1920 x 1080\n\nВнешний вид:\nШирина (мм): 210,9\nТолщина (мм): 14,8\nДлина (мм): 309,6\nВес (г): 1300", "/img/xiaomi_mi_ notebook_air_13_3.jpg", "Ноутбук Xiaomi Mi Notebook Air 13.3\"" });
+                values: new object[] { new Guid("d33bd802-9f3e-4e58-8e11-bab67d0716c8"), 79900m, "Процессор и память:\nПроцессор: Intel i5-8250\nКоличество ядер: Quad-Core\nЧастота: 3.4 ГГц\nОперативная память: 8 Гб\nВидеокарта: GeForce MX150 VRAM GDDR5 объемом 2 ГБ\n\nДисплей:\nДиагональ экрана: 13.3\nРазрешение дисплея: 1920 x 1080\n\nВнешний вид:\nШирина (мм): 210,9\nТолщина (мм): 14,8\nДлина (мм): 309,6\nВес (г): 1300", "/img/xiaomi_mi_notebook_air_13_3.jpg", "Ноутбук Xiaomi Mi Notebook Air 13.3\"" });
 
             migrationBuilder.InsertData(
                 table: "Products",
