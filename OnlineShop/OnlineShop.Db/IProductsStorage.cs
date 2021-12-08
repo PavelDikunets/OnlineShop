@@ -11,5 +11,6 @@ namespace OnlineShop.Db
         void Remove(Guid id);
         void Add(Product product);
         void Update(Product editedProduct);
+        List<Product> Search(string searchRequest);
     }
 }
