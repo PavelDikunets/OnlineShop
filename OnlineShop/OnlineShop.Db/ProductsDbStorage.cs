@@ -39,5 +39,15 @@ namespace OnlineShop.Db
             databaseContext.Products.Add(editedProduct);
             databaseContext.SaveChanges();
         }
+
+        public List<Product> Search(string searchRequest)
+        {
+            var searchResult = new List<Product>();
+            if (!string.IsNullOrEmpty(searchRequest))
+            {
+                searchResult = databaseContext.Products.Where(x => x.Name.ToLower().Contains(searchRequest.ToLower())).ToList();
+            }
+            return searchResult;
+        }
     }
 }
