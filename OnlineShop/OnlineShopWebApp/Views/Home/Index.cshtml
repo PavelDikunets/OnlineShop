@@ -5,16 +5,34 @@
 
 <div class="container">
     <div class="row">
+        <div class="col-md-6 mx-auto">
+            <form method="post">
+                <div class="input-group">
+                    <input type="search" name="searchRequest" id="form1" class="form-control" />
+                    <button type="submit" class="btn btn-primary"
+                            asp-area=""
+                            asp-controller="Search"
+                            asp-action="Query">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
         @foreach (var product in Model)
         {
-            <div class="col-md mx-1 card shadow text-center">
+            <div class="col-md mx-1 my-2 card shadow text-center">
                 <div class="card-body ">
                     <a style="color:black"
                        asp-area=""
                        asp-controller="Product"
                        asp-action="Index"
                        asp-route-productId="@product.Id">
-                        <img class="card-img-top" src="@product.ImagePath" style="max-width: 100%"  alt="Notebook" />
+                        <img class="card-img-top" src="@product.ImagePath" style="max-width: 100%" alt="Notebook" />
                         <h5>@product.Name</h5>
                     </a>
                     <h6>Цена: @product.Cost руб.</h6>

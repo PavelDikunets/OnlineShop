@@ -1,0 +1,25 @@
+﻿@model List<ProductViewModel>
+@{
+    ViewData["Title"] = "Поиск";
+}
+
+<h4>Результаты поиска:</h4>
+<div class="container">
+    @foreach (var product in Model)
+    {
+        <div class="row">
+            <div class="col-md-6 mx-auto my-1 card shadow text-center">
+                <div class="card-body ">
+                    <a style="color:black"
+                       asp-area=""
+                       asp-controller="Product"
+                       asp-action="Index"
+                       asp-route-productId="@product.Id">
+                        <img class="card-img-top" src="@product.ImagePath" style="max-width: 50%" alt="Notebook" />
+                        <h5>@product.Name</h5>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
