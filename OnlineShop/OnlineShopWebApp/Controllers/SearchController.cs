@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShop.Db.Models;
 using OnlineShopWebApp.Helpers;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace OnlineShopWebApp.Controllers
@@ -16,16 +14,16 @@ namespace OnlineShopWebApp.Controllers
             this.productsStorage = productsStorage;
         }
 
-        public IActionResult Index(List<Product> searchResult)
+        public IActionResult Index()
         {
-            return View(searchResult);
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Query(string searchRequest)
+        public IActionResult Index(string searchRequest)
         {
             var searchResult = productsStorage.Search(searchRequest);
-            return View(nameof(Index),searchResult.Select(x => x.ToProductViewModel()).ToList());
+            return View(nameof(Index), searchResult.Select(x => x.ToProductViewModel()).ToList());
         }
     }
 }
