@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OnlineShop.Db;
+using OnlineShop.Db.Models;
 using Serilog;
 
 namespace OnlineShopWebApp
@@ -28,6 +30,9 @@ namespace OnlineShopWebApp
 
             services.AddDbContext<IdentityContext>(options =>
             options.UseSqlServer(connection));
+
+            services.AddIdentity<User, IdentityRole>()
+            .AddEntityFrameworkStores<IdentityContext>();
 
             services.AddTransient<ICartsStorage, CartsDbStorage>();
             services.AddTransient<IProductsStorage, ProductsDbStorage>();
