@@ -22,8 +22,13 @@ namespace OnlineShopWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("online_shop");
+
             services.AddDbContext<DatabaseContext>(options =>
             options.UseSqlServer(connection));
+
+            services.AddDbContext<IdentityContext>(options =>
+            options.UseSqlServer(connection));
+
             services.AddTransient<ICartsStorage, CartsDbStorage>();
             services.AddTransient<IProductsStorage, ProductsDbStorage>();
             services.AddTransient<IFavoriteStorage, FavoriteDbStorage>();
