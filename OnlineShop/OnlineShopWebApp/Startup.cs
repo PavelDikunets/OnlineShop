@@ -64,6 +64,8 @@ namespace OnlineShopWebApp
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
