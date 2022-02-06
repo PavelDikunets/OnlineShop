@@ -1,4 +1,4 @@
-﻿@model List<UserAccount>
+﻿@model List<UserViewModel>
 
 <div class="text-center">
     <h3>Список пользователей</h3>
@@ -7,33 +7,41 @@
     <div class="col-md-2">
         @await Html.PartialAsync("AdminLeftMenu")
     </div>
-    <div class="col-md">
-        <table class="table">
-            <thread>
-                <tr>
-                    <th>№</th>
-                    <th>Пользователь</th>
-                    <th>Фамилия</th>
-                    <th>Имя</th>
-                    <th>Телефон</th>
-                </tr>
-            </thread>
-            <tbody>
-                @for (int i = 0; i < Model.Count; i++)
-                {
+
+    @{ int counter = 1;
+
+        <div class="col-md">
+            <table class="table">
+                <thread>
                     <tr>
-                        <td>@(i + 1)</td>
-                        <td>@Model[i].Login</td>
-                        <td>@Model[i].LastName</td>
-                        <td>@Model[i].FirstName</td>
-                        <td>@Model[i].Phone</td>
-                        <td><a class="btn btn-outline-dark" asp-area="Admin" asp-controller="User" asp-action="Detail" asp-route-userId="@Model[i].Id">Подробнее</a></td>
+                        <th>№</th>
+                        <th>Пользователь</th>
+                        <th>Фамилия</th>
+                        <th>Имя</th>
+                        <th>Телефон</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-        <div class="col-md text-right">
-            <a class="btn btn-outline-dark" asp-area="Admin" asp-controller="User" asp-action="Add">Добавить нового пользователя</a>
+                </thread>
+                <tbody>
+
+                    @foreach (var user in Model)
+                    {
+                    <tr>
+                        <td>@counter</td>
+                        <td>@user.Login</td>
+                        <td>@user.FirstName</td>
+                        <td>@user.LastName</td>
+                        <td>@user.Phone</td>
+                        <td><a class="btn btn-outline-dark" asp-area="Admin" asp-controller="User" asp-action="Detail" asp-route-userId="@user.ToString()">Подробнее</a></td>
+                    </tr>
+
+                        counter += 1;
+                    }
+
+                </tbody>
+            </table>
+            <div class="col-md text-right">
+                <a class="btn btn-outline-dark" asp-area="Admin" asp-controller="User" asp-action="Add">Добавить нового пользователя</a>
+            </div>
         </div>
-    </div>
+    }
 </div>
