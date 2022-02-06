@@ -4,6 +4,5 @@ namespace OnlineShop.Db.Models
 {
     public class User : IdentityUser
     {
-
     }
 }
