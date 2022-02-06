@@ -1,4 +1,5 @@
 ﻿using OnlineShop.Db.Models;
+using OnlineShopWebApp.Areas.Admin.Models;
 using OnlineShopWebApp.Models;
 using System.Linq;
 
@@ -6,6 +7,14 @@ namespace OnlineShopWebApp.Helpers
 {
     public static class Mapping
     {
+        public static UserViewModel ToUserViewModel(this User user)
+        {
+            return new UserViewModel
+            {
+                Login = user.Email,
+                Phone = user.PhoneNumber
+            };
+        }
 
         public static ProductViewModel ToProductViewModel(this Product productDb)
         {
