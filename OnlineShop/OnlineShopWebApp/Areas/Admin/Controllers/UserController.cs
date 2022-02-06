@@ -1,24 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db;
+using OnlineShop.Db.Models;
 using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
+using System.Linq;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area(Constants.AdminRoleName)]
+    [Authorize(Roles = Constants.AdminRoleName)]
     public class UserController : Controller
     {
+        private readonly UserManager<User> _userManager;
         private readonly IUsersStorage usersStorage;
 
-        public UserController(IUsersStorage usersStorage)
+        public UserController(IUsersStorage usersStorage, UserManager<User> userManager)
         {
             this.usersStorage = usersStorage;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
-            var users = usersStorage.GetAll();
-            return View(users);
+            var users = _userManager.Users.ToList();
+            return View(users.Select(u => u.ToUserViewModel()).ToList());
         }
+
         public IActionResult Add()
         {
             return View();
