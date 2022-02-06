@@ -1,4 +1,4 @@
-﻿@model UserLogin
+﻿@model Login
 
 <form method="post">
     <div class="row">
@@ -9,10 +9,11 @@
             <div>
                 <p>
                     <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+                    <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
                     <div>
-                        <label asp-for="Login">Логин:</label><br />
-                        <input asp-for="Login" size="30" placeholder="Example@example.com" /><br />
-                        <span style="color:lightcoral" asp-validation-for="Login" />
+                        <label asp-for="UserName">Логин:</label><br />
+                        <input asp-for="UserName" size="30" placeholder="Example@example.com" /><br />
+                        <span style="color:lightcoral" asp-validation-for="UserName" />
                     </div>
                 </p>
             </div>
@@ -27,7 +28,7 @@
             </div>
             <div>
                 <p>
-                    <input type="checkbox" id="isRemember" value="true" name="isRemember" /> Запомнить меня?
+                    <input type="checkbox" id="RememberMe" value="true" name="RememberMe" /> Запомнить меня?
                 </p>
             </div>
             <p>
