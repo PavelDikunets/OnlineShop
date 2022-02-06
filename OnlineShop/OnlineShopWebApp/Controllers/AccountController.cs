@@ -1,40 +1,41 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Db.Models;
 using OnlineShopWebApp.Models;
 
 namespace OnlineShopWebApp.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IUsersStorage usersStorage;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public AccountController(IUsersStorage usersStorage)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            this.usersStorage = usersStorage;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl)
         {
-            return View();
+            return View(new Login() { ReturnUrl = returnUrl });
         }
         [HttpPost]
-        public IActionResult Login(UserLogin userAccount)
+        public IActionResult Login(Login login)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(userAccount);
+                var result = _signInManager.PasswordSignInAsync(login.UserName, login.Password, login.RememberMe, false).Result;
+                if (result.Succeeded)
+                {
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Логин и/или пароль неправильные!");
+                }
             }
-            var existUserAccount = usersStorage.TryGetByName(userAccount.Login);
-            if (userAccount == null)
-            {
-                ModelState.AddModelError("", "Такого пользователя не существует!");
-                return View(userAccount);
-            }
-            if (existUserAccount.Password != userAccount.Password)
-            {
-                ModelState.AddModelError("", "Логин и/или пароль неправильные!");
-                return View(userAccount);
-            }
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return View(login);
         }
 
         public IActionResult Registration()
@@ -45,22 +46,36 @@ namespace OnlineShopWebApp.Controllers
         [HttpPost]
         public IActionResult Registration(UserAccount userAccount)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(userAccount);
-            }
             if (userAccount.Login == userAccount.Password)
             {
                 ModelState.AddModelError("", "Логин и пароль не должны совпадать!");
                 return View(userAccount);
             }
-            if (usersStorage.TryGetByName(userAccount.Login) != null)
+
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Такой пользователь уже существует!");
-                return View(userAccount);
+                User user = new User { Email = userAccount.Login, UserName = userAccount.Login };
+                var result = _userManager.CreateAsync(user, userAccount.Password).Result;
+                if (result.Succeeded)
+                {
+                    _signInManager.SignInAsync(user, false).Wait();
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
             }
-            usersStorage.Add(userAccount);
-            return View("SuccessfulRegistration");
+            return View(userAccount);
+        }
+
+        public IActionResult Logout()
+        {
+            _signInManager.SignOutAsync().Wait();
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }
 }
