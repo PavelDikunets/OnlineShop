@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShopWebApp.Controllers;
 using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
+using System;
 using System.Linq;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
@@ -15,12 +17,12 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
     public class UserController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private readonly IUsersStorage usersStorage;
+        private readonly SignInManager<User> _signInManager;
 
-        public UserController(IUsersStorage usersStorage, UserManager<User> userManager)
+        public UserController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            this.usersStorage = usersStorage;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index()
@@ -35,69 +37,97 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(UserAccount userAccount)
+        public IActionResult Add(UserAccountViewModel userAccount)
         {
             if (!ModelState.IsValid)
             {
                 return View(userAccount);
             }
-            if (userAccount.Login == userAccount.Password)
+            //if (userAccount.Login == userAccount.Password)
+            //{
+            //    ModelState.AddModelError("", "Логин и пароль не должны совпадать!");
+            //    return View(userAccount);
+            //}
+            //if (usersStorage.TryGetByName(userAccount.Login) != null)
+            //{
+            //    ModelState.AddModelError("", "Такой пользователь уже существует!");
+            //    return View(userAccount);
+            //}
+
+            User user = new User { Email = userAccount.Login, UserName = userAccount.Login, PhoneNumber = userAccount.PhoneNumber };
+            var result = _userManager.CreateAsync(user, userAccount.Password).Result;
+            if (result.Succeeded)
             {
-                ModelState.AddModelError("", "Логин и пароль не должны совпадать!");
-                return View(userAccount);
+                _signInManager.SignInAsync(user, false).Wait();
+                RedirectToAction(nameof(UserController.Add), "User");
             }
-            if (usersStorage.TryGetByName(userAccount.Login) != null)
+            else
             {
-                ModelState.AddModelError("", "Такой пользователь уже существует!");
-                return View(userAccount);
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
             }
-            usersStorage.Add(userAccount);
-            return RedirectToAction(nameof(Index));
-        }
-        public IActionResult Edit(int userId)
-        {
-            var userAccount = usersStorage.TryGetById(userId);
             return View(userAccount);
         }
+        //public IActionResult Edit(Guid userId)
+        //{
+        //    var userAccount = usersStorage.TryGetById(userId);
+        //    return View(userAccount);
+        //}
 
-        [HttpPost]
-        public IActionResult Edit(UserAccount editedAccount)
+        //[HttpPost]
+        //public IActionResult Edit(UserAccountViewModel editedAccount)
+        //{
+        //    usersStorage.Edit(editedAccount);
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+
+        public IActionResult Remove(string login)
         {
-            usersStorage.Edit(editedAccount);
+            User user = new User { Email = login };
+            var result = _userManager.FindByNameAsync(user.Email).Result;
+            _userManager.DeleteAsync(result).Wait();
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Remove(int userId)
+
+        //[HttpPost]
+        //public IActionResult Remove(string login)
+        //{
+        //    User user = new User { Email = login };
+        //    var result = _userManager.FindByNameAsync(user.Email).Result;
+        //    _userManager.DeleteAsync(result).Wait();
+        //    return RedirectToAction(nameof(Index));
+        //}
+        public IActionResult Detail(string login)
         {
-            usersStorage.Remove(userId);
-            return RedirectToAction(nameof(Index));
-        }
-        public IActionResult Detail(int userId)
-        {
-            var userAccount = usersStorage.TryGetById(userId);
+            var result = _userManager.FindByNameAsync(login).Result;
+            UserAccountViewModel userAccount = new UserAccountViewModel { Login = result.Email };
             return View(userAccount);
         }
-        public IActionResult ChangePassword(string login)
-        {
-            var changePassword = new ChangePassword()
-            {
-                Login = login
-            };
-            return View(changePassword);
-        }
+        //public IActionResult ChangePassword(string login)
+        //{
+        //    var changePassword = new ChangePassword()
+        //    {
+        //        Login = login
+        //    };
+        //    return View(changePassword);
+        //}
 
-        [HttpPost]
-        public IActionResult ChangePassword(ChangePassword changePassword)
-        {
-            if (changePassword.Login == changePassword.Password)
-            {
-                ModelState.AddModelError("", "Логин и пароль не должны совпадать!");
-            }
-            if (ModelState.IsValid)
-            {
-                usersStorage.ChangePassword(changePassword.Login, changePassword.Password);
-                return RedirectToAction(nameof(Index));
-            }
-            return RedirectToAction(nameof(ChangePassword));
-        }
+        //[HttpPost]
+        //public IActionResult ChangePassword(ChangePassword changePassword)
+        //{
+        //    if (changePassword.Login == changePassword.Password)
+        //    {
+        //        ModelState.AddModelError("", "Логин и пароль не должны совпадать!");
+        //    }
+        //    if (ModelState.IsValid)
+        //    {
+        //        usersStorage.ChangePassword(changePassword.Login, changePassword.Password);
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return RedirectToAction(nameof(ChangePassword));
+        //}
     }
 }
