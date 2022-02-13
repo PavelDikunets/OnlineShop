@@ -18,10 +18,10 @@ namespace OnlineShopWebApp.Controllers
 
         public IActionResult Login(string returnUrl)
         {
-            return View(new Login() { ReturnUrl = returnUrl });
+            return View(new LoginViewModel() { ReturnUrl = returnUrl });
         }
         [HttpPost]
-        public IActionResult Login(Login login)
+        public IActionResult Login(LoginViewModel login)
         {
             if (ModelState.IsValid)
             {
@@ -44,7 +44,7 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registration(UserAccount userAccount)
+        public IActionResult Registration(UserAccountViewModel userAccount)
         {
             if (userAccount.Login == userAccount.Password)
             {
