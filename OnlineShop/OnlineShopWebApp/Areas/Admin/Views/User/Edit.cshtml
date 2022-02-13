@@ -1,4 +1,4 @@
-﻿@model UserAccount
+﻿@model UserAccountViewModel
 
 <form method="post">
     <div class="text-center">
@@ -27,12 +27,12 @@
                     <span style="color:lightcoral" asp-validation-for="FirstName" />
                 </div>
                 <div class="my-2">
-                    <label asp-for="Phone">Телефон:</label>
-                    <input asp-for="Phone" value="@Model.Phone" />
-                    <span style="color:lightcoral" asp-validation-for="Phone" />
+                    <label asp-for="PhoneNumber">Телефон:</label>
+                    <input asp-for="PhoneNumber" value="@Model.PhoneNumber" />
+                    <span style="color:lightcoral" asp-validation-for="PhoneNumber" />
                 </div>
                 <div class="my-2 text-right">
-                    <button class="btn btn-success" type="submit" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-id="@Model.Id">Сохранить</button>
+@*                    <button class="btn btn-success" type="submit" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-id="@Model.Id">Сохранить</button>*@
                     <a class="btn btn-dark" asp-area="Admin" asp-controller="User" asp-action="Index" role="button">К списку продуктов</a>
                 </div>
             </div>

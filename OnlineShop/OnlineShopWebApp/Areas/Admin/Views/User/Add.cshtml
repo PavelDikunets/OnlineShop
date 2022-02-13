@@ -1,4 +1,4 @@
-﻿@model UserAccount
+﻿@model UserAccountViewModel
 
 <form method="post">
     <div class="row">
@@ -55,9 +55,9 @@
             <div>
                 <p>
                     <div>
-                        <label asp-for="Phone">Телефон:</label><br />
-                        <input asp-for="Phone" size="30" placeholder="+7 XXX XXX-XX-XX" /><br />
-                        <span style="color:lightcoral" asp-validation-for="Phone" />
+                        <label asp-for="PhoneNumber">Телефон:</label><br />
+                        <input asp-for="PhoneNumber" size="30" placeholder="+7 XXX XXX-XX-XX" /><br />
+                        <span style="color:lightcoral" asp-validation-for="PhoneNumber" />
                     </div>
                 </p>
             </div>

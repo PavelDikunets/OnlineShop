@@ -1,5 +1,6 @@
-﻿@model UserAccount
+﻿@model UserAccountViewModel
 
+<form method="post">
 <div class="text-center">
     <h3>Логин: @Model.Login</h3>
 </div>
@@ -18,7 +19,7 @@
                 <tbody>
                     <tr>
                         <td>Id</td>
-                        <td>@Model.Id</td>
+                        <td>@Model.PhoneNumber</td>
                     </tr>
                     <tr>
                         <td>Фамилия</td>
@@ -30,7 +31,7 @@
                     </tr>
                     <tr>
                         <td>Телефон</td>
-                        <td>@Model.Phone</td>
+                        <td>@Model.PhoneNumber</td>
                     </tr>
                 </tbody>
             </table>
@@ -40,11 +41,12 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangePassword" asp-route-login="@Model.Login">Смена пароля</a>
-                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-userId="@Model.Id">Редактирование данных</a>
-                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="EditRights" asp-route-userId="@Model.Id">Права доступа</a>
-                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Remove" asp-route-userId="@Model.Id">Удалить пользователя</a>
+                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-login="@Model.Login">Редактирование данных</a>
+                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="EditRights" asp-route-login="@Model.Login">Права доступа</a>
+                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Remove" asp-route-login="@Model.Login">Удалить пользователя</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</form>
