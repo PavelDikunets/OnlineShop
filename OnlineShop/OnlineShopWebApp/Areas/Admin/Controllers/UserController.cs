@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
+using OnlineShopWebApp.Areas.Admin.Models;
 using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
 {
@@ -34,28 +36,28 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(UserAccountViewModel userAccount)
+        public IActionResult Add(UserAccountViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(userAccount);
+                return View(model);
             }
-            //if (userAccount.Login == userAccount.Password)
-            //{
-            //    ModelState.AddModelError("", "Логин и пароль не должны совпадать!");
-            //    return View(userAccount);
-            //}
-            //if (usersStorage.TryGetByName(userAccount.Login) != null)
-            //{
-            //    ModelState.AddModelError("", "Такой пользователь уже существует!");
-            //    return View(userAccount);
-            //}
+            if (model.Login == model.Password)
+            {
+                ModelState.AddModelError("", "Логин и пароль не должны совпадать!");
+                return View(model);
+            }
+            if (_userManager.FindByNameAsync(model.Login) != null)
+            {
+                ModelState.AddModelError("", "Такой пользователь уже существует!");
+                return View(model);
+            }
 
-            User user = new User { Email = userAccount.Login, UserName = userAccount.Login, PhoneNumber = userAccount.PhoneNumber };
-            var result = _userManager.CreateAsync(user, userAccount.Password).Result;
+            User user = new User { Email = model.Login, UserName = model.Login, PhoneNumber = model.PhoneNumber };
+            var result = _userManager.CreateAsync(user, model.Password).Result;
             if (result.Succeeded)
             {
-               return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
             }
             else
             {
@@ -64,66 +66,85 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-            return View(userAccount);
+            return View(model);
         }
-        //public IActionResult Edit(Guid userId)
-        //{
-        //    var userAccount = usersStorage.TryGetById(userId);
-        //    return View(userAccount);
-        //}
+        public IActionResult Edit(string login)
+        {
+            var user = _userManager.FindByNameAsync(login).Result;
+            UserAccountViewModel model = new UserAccountViewModel { Login = user.Email, PhoneNumber = user.PhoneNumber, Id = user.Id };
+            return View(model);
+        }
 
-        //[HttpPost]
-        //public IActionResult Edit(UserAccountViewModel editedAccount)
-        //{
-        //    usersStorage.Edit(editedAccount);
-        //    return RedirectToAction(nameof(Index));
-        //}
+        [HttpPost]
+        public async Task<IActionResult> Edit(UserAccountViewModel model)
+        {
+            User user = await _userManager.FindByNameAsync(model.Login);
+            //Нужно реализовать!
+            await _userManager.UpdateAsync(user);
+            return View(model);
+        }
 
 
         public IActionResult Remove(string login)
         {
-            User user = new User { Email = login };
-            var result = _userManager.FindByNameAsync(user.Email).Result;
-            _userManager.DeleteAsync(result).Wait();
+            var user = _userManager.FindByNameAsync(login).Result;
+            _userManager.DeleteAsync(user).Wait();
             return RedirectToAction(nameof(Index));
         }
 
-        //[HttpPost]
-        //public IActionResult Remove(string login)
-        //{
-        //    User user = new User { Email = login };
-        //    var result = _userManager.FindByNameAsync(user.Email).Result;
-        //    _userManager.DeleteAsync(result).Wait();
-        //    return RedirectToAction(nameof(Index));
-        //}
         public IActionResult Detail(string login)
         {
-            var result = _userManager.FindByNameAsync(login).Result;
-            UserAccountViewModel userAccount = new UserAccountViewModel { Login = result.Email };
-            return View(userAccount);
+            var user = _userManager.FindByNameAsync(login).Result;
+            UserAccountViewModel model = new UserAccountViewModel { Login = user.Email, PhoneNumber = user.PhoneNumber, Id = user.Id };
+            return View(model);
         }
-        //public IActionResult ChangePassword(string login)
-        //{
-        //    var changePassword = new ChangePassword()
-        //    {
-        //        Login = login
-        //    };
-        //    return View(changePassword);
-        //}
 
-        //[HttpPost]
-        //public IActionResult ChangePassword(ChangePassword changePassword)
-        //{
-        //    if (changePassword.Login == changePassword.Password)
-        //    {
-        //        ModelState.AddModelError("", "Логин и пароль не должны совпадать!");
-        //    }
-        //    if (ModelState.IsValid)
-        //    {
-        //        usersStorage.ChangePassword(changePassword.Login, changePassword.Password);
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return RedirectToAction(nameof(ChangePassword));
-        //}
+        public async Task<IActionResult> ChangePassword(string login)
+        {
+            User user = await _userManager.FindByNameAsync(login);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            ChangePasswordViewModel model = new ChangePasswordViewModel { Login = user.Email };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = await _userManager.FindByNameAsync(model.Login);
+                if (user != null)
+                {
+                    var _passwordValidator =
+                        HttpContext.RequestServices.GetService(typeof(IPasswordValidator<User>)) as IPasswordValidator<User>;
+                    var _passwordHasher =
+                        HttpContext.RequestServices.GetService(typeof(IPasswordHasher<User>)) as IPasswordHasher<User>;
+
+                    IdentityResult result =
+                        await _passwordValidator.ValidateAsync(_userManager, user, model.NewPassword);
+                    if (result.Succeeded)
+                    {
+                        user.PasswordHash = _passwordHasher.HashPassword(user, model.NewPassword);
+                        await _userManager.UpdateAsync(user);
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Пользователь не найден");
+                }
+            }
+            return View(model);
+        }
     }
 }
