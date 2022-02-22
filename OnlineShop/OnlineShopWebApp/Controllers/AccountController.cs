@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Models;
+using System.Threading.Tasks;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -20,12 +21,13 @@ namespace OnlineShopWebApp.Controllers
         {
             return View(new LoginViewModel() { ReturnUrl = returnUrl });
         }
+
         [HttpPost]
-        public IActionResult Login(LoginViewModel login)
+        public async Task<ActionResult> LoginAsync(LoginViewModel login)
         {
             if (ModelState.IsValid)
             {
-                var result = _signInManager.PasswordSignInAsync(login.UserName, login.Password, login.RememberMe, false).Result;
+                var result = await _signInManager.PasswordSignInAsync(login.UserName, login.Password, login.RememberMe, false);
                 if (result.Succeeded)
                 {
                     return RedirectToAction(nameof(HomeController.Index), "Home");
@@ -44,7 +46,7 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registration(UserAccountViewModel userAccount)
+        public async Task<ActionResult> RegistrationAsync(UserAccountViewModel userAccount)
         {
             if (userAccount.Login == userAccount.Password)
             {
@@ -55,10 +57,10 @@ namespace OnlineShopWebApp.Controllers
             if (ModelState.IsValid)
             {
                 User user = new User { Email = userAccount.Login, UserName = userAccount.Login };
-                var result = _userManager.CreateAsync(user, userAccount.Password).Result;
+                var result = await _userManager.CreateAsync(user, userAccount.Password);
                 if (result.Succeeded)
                 {
-                    _signInManager.SignInAsync(user, false).Wait();
+                    await _signInManager.SignInAsync(user, false);
                     return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
                 else
@@ -72,9 +74,9 @@ namespace OnlineShopWebApp.Controllers
             return View(userAccount);
         }
 
-        public IActionResult Logout()
+        public async Task<ActionResult> LogoutAsync()
         {
-            _signInManager.SignOutAsync().Wait();
+            await _signInManager.SignOutAsync();
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }

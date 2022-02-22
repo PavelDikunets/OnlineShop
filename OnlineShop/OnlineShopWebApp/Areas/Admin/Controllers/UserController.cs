@@ -36,7 +36,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(UserAccountViewModel model)
+        public async Task<ActionResult> AddAsync(UserAccountViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -47,14 +47,14 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
                 ModelState.AddModelError("", "Логин и пароль не должны совпадать!");
                 return View(model);
             }
-            if (_userManager.FindByNameAsync(model.Login) != null)
+            if (await _userManager.FindByNameAsync(model.Login) != null)
             {
                 ModelState.AddModelError("", "Такой пользователь уже существует!");
                 return View(model);
             }
 
             User user = new User { Email = model.Login, UserName = model.Login, PhoneNumber = model.PhoneNumber };
-            var result = _userManager.CreateAsync(user, model.Password).Result;
+            var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction(nameof(Index));
@@ -68,15 +68,15 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             }
             return View(model);
         }
-        public IActionResult Edit(string login)
+        public async Task<ActionResult> EditAsync(string login)
         {
-            var user = _userManager.FindByNameAsync(login).Result;
+            var user = await _userManager.FindByNameAsync(login);
             UserAccountViewModel model = new UserAccountViewModel { Login = user.Email, PhoneNumber = user.PhoneNumber, Id = user.Id };
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UserAccountViewModel model)
+        public async Task<ActionResult> EditAsync(UserAccountViewModel model)
         {
             User user = await _userManager.FindByNameAsync(model.Login);
             //Нужно реализовать!
@@ -85,21 +85,21 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         }
 
 
-        public IActionResult Remove(string login)
+        public async Task<ActionResult> RemoveAsync(string login)
         {
-            var user = _userManager.FindByNameAsync(login).Result;
-            _userManager.DeleteAsync(user).Wait();
+            var user = await _userManager.FindByNameAsync(login);
+            await _userManager.DeleteAsync(user);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Detail(string login)
+        public async Task<ActionResult> DetailAsync(string login)
         {
-            var user = _userManager.FindByNameAsync(login).Result;
+            var user = await _userManager.FindByNameAsync(login);
             UserAccountViewModel model = new UserAccountViewModel { Login = user.Email, PhoneNumber = user.PhoneNumber, Id = user.Id };
             return View(model);
         }
 
-        public async Task<IActionResult> ChangePassword(string login)
+        public async Task<ActionResult> ChangePasswordAsync(string login)
         {
             User user = await _userManager.FindByNameAsync(login);
             if (user == null)
@@ -111,7 +111,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        public async Task<ActionResult> ChangePasswordAsync(ChangePasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
