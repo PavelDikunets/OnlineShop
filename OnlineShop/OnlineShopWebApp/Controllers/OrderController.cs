@@ -36,7 +36,7 @@ namespace OnlineShopWebApp.Controllers
                 UserDeliveryInfo = user.ToUserDeliveryInfo(),
                 Items = currentCart.Items
             };
-            ordersStorage.Add(orderDb);
+            ordersStorage.AddAsync(orderDb);
             cartsStorage.Clear(Constants.UserId);
             return View();
         }

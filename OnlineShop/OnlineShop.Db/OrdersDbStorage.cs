@@ -4,6 +4,7 @@ using OnlineShop.Db.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OnlineShopWebApp
 {
@@ -16,27 +17,27 @@ namespace OnlineShopWebApp
             this.databaseContext = databaseContext;
         }
 
-        public void Add(Order order)
+        public async Task AddAsync(Order order)
         {
-            databaseContext.Orders.Add(order);
+            await databaseContext.Orders.AddAsync(order);
             databaseContext.SaveChanges();
         }
-        public List<Order> GetAll()
+        public async Task<List<Order>> GetAllAsync()
         {
-            return databaseContext.Orders.Include(x => x.UserDeliveryInfo)
+            return await databaseContext.Orders.Include(x => x.UserDeliveryInfo)
                                          .Include(x => x.Items)
-                                         .ThenInclude(x => x.Product).ToList();
+                                         .ThenInclude(x => x.Product).ToListAsync();
         }
-        public Order TryGetById(Guid id)
+        public async Task<Order> TryGetByIdAsync(Guid id)
         {
-            return databaseContext.Orders.Include(x => x.UserDeliveryInfo)
+            return await databaseContext.Orders.Include(x => x.UserDeliveryInfo)
                                          .Include(x => x.Items)
-                                         .ThenInclude(x => x.Product).FirstOrDefault(x => x.Id == id);
+                                         .ThenInclude(x => x.Product).FirstOrDefaultAsync(x => x.Id == id);
 
         }
-        public void UpdateStatus(Guid orderId, OrderStatus status)
+        public async Task UpdateStatusAsync(Guid orderId, OrderStatus status)
         {
-            var order = TryGetById(orderId);
+            var order = await TryGetByIdAsync(orderId);
             order.Status = status;
             databaseContext.SaveChanges();
         }
