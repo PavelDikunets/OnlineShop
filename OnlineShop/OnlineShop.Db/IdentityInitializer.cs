@@ -1,29 +1,30 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using OnlineShop.Db.Models;
+using System.Threading.Tasks;
 
 namespace OnlineShop.Db
 {
     public class IdentityInitializer
     {
-        public static void Initialize(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task InitializeAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             var adminEmail = "admin@admin.com";
             var password = "Admin12345";
-            if (roleManager.FindByNameAsync(Constants.AdminRoleName).Result == null)
+            if (await roleManager.FindByNameAsync(Constants.AdminRoleName) == null)
             {
-                roleManager.CreateAsync(new IdentityRole(Constants.AdminRoleName)).Wait();
+                await roleManager.CreateAsync(new IdentityRole(Constants.AdminRoleName));
             }
-            if (roleManager.FindByNameAsync(Constants.UserRoleName).Result == null)
+            if (await roleManager.FindByNameAsync(Constants.UserRoleName) == null)
             {
-                roleManager.CreateAsync(new IdentityRole(Constants.UserRoleName)).Wait();
+                await roleManager.CreateAsync(new IdentityRole(Constants.UserRoleName));
             }
-            if (userManager.FindByNameAsync(adminEmail).Result == null)
+            if (await userManager.FindByNameAsync(adminEmail) == null)
             {
                 var admin = new User { Email = adminEmail, UserName = adminEmail };
-                var result = userManager.CreateAsync(admin, password).Result;
+                var result = await userManager.CreateAsync(admin, password);
                 if (result.Succeeded)
                 {
-                    userManager.AddToRoleAsync(admin, Constants.AdminRoleName).Wait();
+                    await userManager.AddToRoleAsync(admin, Constants.AdminRoleName);
                 }
             }
         }
