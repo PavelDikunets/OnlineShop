@@ -21,20 +21,20 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             this.productsStorage = productsStorage;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<ActionResult> Index()
         {
             var products = await productsStorage.GetAllAsync();
             return View(products.Select(x => x.ToProductViewModel()).ToList());
         }
 
-        public async Task<IActionResult> EditAsync(Guid productId)
+        public async Task<ActionResult> EditAsync(Guid productId)
         {
             var product = await productsStorage.TryGetByIdAsync(productId);
             return View(product.ToProductViewModel());
         }
 
         [HttpPost]
-        public IActionResult Edit(ProductViewModel product)
+        public async Task<ActionResult> EditAsync(ProductViewModel product)
         {
             var productDb = new Product
             {
@@ -43,13 +43,13 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
                 Cost = product.Cost,
                 Description = product.Description
             };
-            productsStorage.UpdateAsync(productDb);
+            await productsStorage.UpdateAsync(productDb);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Remove(Guid productId)
+        public async Task<ActionResult> RemoveAsync(Guid productId)
         {
-            productsStorage.RemoveAsync(productId);
+            await productsStorage.RemoveAsync(productId);
             return RedirectToAction(nameof(Index));
         }
 
@@ -57,8 +57,9 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         {
             return View();
         }
+
         [HttpPost]
-        public IActionResult Add(ProductViewModel product)
+        public async Task<ActionResult> AddAsync(ProductViewModel product)
         {
             if (!ModelState.IsValid)
             {
@@ -70,7 +71,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
                 Cost = product.Cost,
                 Description = product.Description
             };
-            productsStorage.AddAsync(productDb);
+            await productsStorage.AddAsync(productDb);
             return RedirectToAction(nameof(Index));
         }
     }

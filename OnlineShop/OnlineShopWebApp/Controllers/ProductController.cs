@@ -14,7 +14,7 @@ namespace OnlineShopWebApp.Controllers
         {
             this.productsStorage = productsStorage;
         }
-        public async Task<IActionResult> Index(Guid productId)
+        public async Task<ActionResult> Index(Guid productId)
         {
             var product = await productsStorage.TryGetByIdAsync(productId);
             return View(product.ToProductViewModel());
