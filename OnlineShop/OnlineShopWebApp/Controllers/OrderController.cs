@@ -4,6 +4,7 @@ using OnlineShop.Db;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
+using System.Threading.Tasks;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -24,20 +25,20 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Check_out(UserDeliveryInfoViewModel user)
+        public async Task<IActionResult> Check_outAsync(UserDeliveryInfoViewModel user)
         {
             if (!ModelState.IsValid)
             {
                 return View("Index", user);
             }
-            var currentCart = cartsStorage.TryGetByUserId(Constants.UserId);
+            var currentCart = await cartsStorage.TryGetByUserIdAsync(Constants.UserId);
             var orderDb = new Order
             {
                 UserDeliveryInfo = user.ToUserDeliveryInfo(),
                 Items = currentCart.Items
             };
-            ordersStorage.AddAsync(orderDb);
-            cartsStorage.Clear(Constants.UserId);
+            await ordersStorage.AddAsync(orderDb);
+            await cartsStorage.ClearAsync(Constants.UserId);
             return View();
         }
     }
