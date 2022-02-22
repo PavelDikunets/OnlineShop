@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShopWebApp.Helpers;
+using System.Threading.Tasks;
 
 namespace OnlineShopWebApp.Views.Shared.Components.Cart
 {
@@ -13,9 +14,9 @@ namespace OnlineShopWebApp.Views.Shared.Components.Cart
             this.cartsStorage = cartsStorage;
         }
 
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            var cart = cartsStorage.TryGetByUserId(Constants.UserId);
+            var cart = await cartsStorage.TryGetByUserIdAsync(Constants.UserId);
             var cartViewModel = cart.ToCartViewModel();
             var productCounts = cartViewModel?.Amount ?? 0;
             return View("Cart", productCounts);
