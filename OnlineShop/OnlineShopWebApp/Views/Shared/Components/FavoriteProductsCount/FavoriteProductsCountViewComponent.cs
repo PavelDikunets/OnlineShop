@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShopWebApp.Helpers;
+using System.Threading.Tasks;
 
 namespace OnlineShopWebApp.Views.Shared.Components.Cart
 {
@@ -13,10 +14,10 @@ namespace OnlineShopWebApp.Views.Shared.Components.Cart
             this.favoriteStorage = favoriteStorage;
         }
 
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            var productsCount = favoriteStorage.GetAll(Constants.UserId).Count;
-            return View("FavoriteProductsCount", productsCount);
+            var productsCount = await favoriteStorage.GetAllAsync(Constants.UserId);
+            return View("FavoriteProductsCount", productsCount.Count);
         }
     }
 }

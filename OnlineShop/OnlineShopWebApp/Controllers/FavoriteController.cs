@@ -18,28 +18,28 @@ namespace OnlineShopWebApp.Controllers
             this.productsStorage = productsStorage;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var products = favoriteProductStorage.GetAll(Constants.UserId);
+            var products = await favoriteProductStorage.GetAllAsync(Constants.UserId);
             return View(products.Select(x => x.ToProductViewModel()).ToList());
         }
 
         public async Task<IActionResult> AddAsync(Guid productId)
         {
             var product = await productsStorage.TryGetByIdAsync(productId);
-            favoriteProductStorage.Add(Constants.UserId, product);
+            await favoriteProductStorage.AddAsync(Constants.UserId, product);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Remove(Guid productId)
+        public async Task<IActionResult> RemoveAsync(Guid productId)
         {
-            favoriteProductStorage.Remove(Constants.UserId, productId);
+            await favoriteProductStorage.RemoveAsync(Constants.UserId, productId);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Clear(string userId)
+        public async Task<IActionResult> ClearAsync(string userId)
         {
-            favoriteProductStorage.Clear(Constants.UserId);
+            await favoriteProductStorage.ClearAsync(Constants.UserId);
             return RedirectToAction(nameof(Index));
         }
     }
