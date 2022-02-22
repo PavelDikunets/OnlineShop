@@ -25,7 +25,7 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Check_outAsync(UserDeliveryInfoViewModel user)
+        public async Task<ActionResult> Check_outAsync(UserDeliveryInfoViewModel user)
         {
             if (!ModelState.IsValid)
             {

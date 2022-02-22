@@ -20,21 +20,21 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         {
             this.ordersStorage = ordersStorage;
         }
-        public async Task<IActionResult> Index()
+        public async Task<ActionResult> Index()
         {
             var orders = await ordersStorage.GetAllAsync();
             return View(orders.Select(x => x.ToOrderViewModel()).ToList());
         }
-        public async Task<IActionResult> DetailsAsync(Guid orderId)
+        public async Task<ActionResult> DetailsAsync(Guid orderId)
         {
             var order = await ordersStorage.TryGetByIdAsync(orderId);
             return View(order.ToOrderViewModel());
         }
 
         [HttpPost]
-        public IActionResult UpdateStatus(Guid orderId, OrderStatusViewModel status)
+        public async Task<ActionResult> UpdateStatusAsync(Guid orderId, OrderStatusViewModel status)
         {
-            ordersStorage.UpdateStatusAsync(orderId, (OrderStatus)(int)status);
+            await ordersStorage.UpdateStatusAsync(orderId, (OrderStatus)(int)status);
             return RedirectToAction(nameof(Index));
         }
     }
