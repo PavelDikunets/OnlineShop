@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShopWebApp.Helpers;
+using System.Threading.Tasks;
 
 namespace OnlineShopWebApp.Views.Shared.Components.Cart
 {
@@ -13,10 +14,10 @@ namespace OnlineShopWebApp.Views.Shared.Components.Cart
             this.compareStorage = compareStorage;
         }
 
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            var productsCount = compareStorage.GetAll(Constants.UserId).Count;
-            return View("CompareProductsCount", productsCount);
+            var productsCount = await compareStorage.GetAllAsync(Constants.UserId);
+            return View("CompareProductsCount", productsCount.Count);
         }
     }
 }

@@ -3,6 +3,7 @@ using OnlineShop.Db.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OnlineShop.Db
 {
@@ -15,33 +16,33 @@ namespace OnlineShop.Db
             this.databaseContext = databaseContext;
         }
 
-        public List<Product> GetAll(string userId)
+        public async Task<List<Product>> GetAllAsync(string userId)
         {
-            return databaseContext.CompareProducts.Where(u => u.UserId == userId)
+            return await databaseContext.CompareProducts.Where(u => u.UserId == userId)
                                                   .Include(x => x.Product)
                                                   .Select(x => x.Product)
-                                                  .ToList();
+                                                  .ToListAsync();
         }
-        public void Add(string userId, Product product)
+        public async Task AddAsync(string userId, Product product)
         {
-            var currentProduct = databaseContext.CompareProducts.FirstOrDefault(x => x.UserId == userId && x.Product == product);
+            var currentProduct = await databaseContext.CompareProducts.FirstOrDefaultAsync(x => x.UserId == userId && x.Product == product);
             if (currentProduct == null)
             {
-                databaseContext.CompareProducts.Add(new CompareProduct { Product = product, UserId = userId });
-                databaseContext.SaveChanges();
+                await databaseContext.CompareProducts.AddAsync(new CompareProduct { Product = product, UserId = userId });
+                await databaseContext.SaveChangesAsync();
             }
         }
-        public void Remove(string userId, Guid productId)
+        public async Task RemoveAsync(string userId, Guid productId)
         {
-            var currentProduct = databaseContext.CompareProducts.FirstOrDefault(x => x.UserId == userId && x.Product.Id == productId);
+            var currentProduct = await databaseContext.CompareProducts.FirstOrDefaultAsync(x => x.UserId == userId && x.Product.Id == productId);
             databaseContext.CompareProducts.Remove(currentProduct);
-            databaseContext.SaveChanges();
+            await databaseContext.SaveChangesAsync();
         }
-        public void Clear(string userId)
+        public async Task ClearAsync(string userId)
         {
-            var userFavoriteProducts = databaseContext.CompareProducts.Where(x => x.UserId == userId).ToList();
+            var userFavoriteProducts = await databaseContext.CompareProducts.Where(x => x.UserId == userId).ToListAsync();
             databaseContext.CompareProducts.RemoveRange(userFavoriteProducts);
-            databaseContext.SaveChanges();
+            await databaseContext.SaveChangesAsync();
         }
 
     }
