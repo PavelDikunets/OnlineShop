@@ -5,12 +5,13 @@ using Microsoft.Extensions.Hosting;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
 using Serilog;
+using System.Threading.Tasks;
 
 namespace OnlineShopWebApp
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
 
@@ -19,7 +20,7 @@ namespace OnlineShopWebApp
                 var services = scope.ServiceProvider;
                 var userManager = services.GetRequiredService<UserManager<User>>();
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                IdentityInitializer.Initialize(userManager, roleManager);
+                await IdentityInitializer.InitializeAsync(userManager, roleManager);
             }
             host.Run();
         }
