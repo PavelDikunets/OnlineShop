@@ -5,6 +5,7 @@ namespace OnlineShopWebApp.Models
 {
     public class UserAccountViewModel
     {
+        public string Id { get; set; }
 
         [Required(ErrorMessage = "Заполните поле")]
         [EmailAddress(ErrorMessage = "E-mail указан неверно")]
@@ -28,6 +29,5 @@ namespace OnlineShopWebApp.Models
 
         [RegularExpression(@"\+7\s[0-9]{3}\s[0-9]{3}\-[0-9]{2}\-[0-9]{2}$", ErrorMessage = "Введите номер телефона в формате: +7 XXX XXX-XX-XX")]
         public string PhoneNumber { get; set; }
-        public UserDeliveryInfoViewModel UserDeliveryInfoViewModel { get; set; }
     }
 }
