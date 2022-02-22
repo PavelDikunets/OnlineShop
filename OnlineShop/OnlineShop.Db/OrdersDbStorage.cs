@@ -3,7 +3,6 @@ using OnlineShop.Db;
 using OnlineShop.Db.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace OnlineShopWebApp
@@ -20,7 +19,7 @@ namespace OnlineShopWebApp
         public async Task AddAsync(Order order)
         {
             await databaseContext.Orders.AddAsync(order);
-            databaseContext.SaveChanges();
+            await databaseContext.SaveChangesAsync();
         }
         public async Task<List<Order>> GetAllAsync()
         {
@@ -39,7 +38,7 @@ namespace OnlineShopWebApp
         {
             var order = await TryGetByIdAsync(orderId);
             order.Status = status;
-            databaseContext.SaveChanges();
+            await databaseContext.SaveChangesAsync();
         }
     }
 }
