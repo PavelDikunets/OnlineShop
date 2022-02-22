@@ -3,11 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
-using OnlineShopWebApp.Areas.Admin.Models;
-using OnlineShopWebApp.Controllers;
 using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
-using System;
 using System.Linq;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
@@ -58,8 +55,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             var result = _userManager.CreateAsync(user, userAccount.Password).Result;
             if (result.Succeeded)
             {
-                _signInManager.SignInAsync(user, false).Wait();
-                RedirectToAction(nameof(UserController.Add), "User");
+               return RedirectToAction(nameof(Index));
             }
             else
             {
