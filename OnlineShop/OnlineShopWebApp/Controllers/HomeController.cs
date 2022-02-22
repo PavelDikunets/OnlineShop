@@ -15,7 +15,7 @@ namespace OnlineShopWebApp.Controllers
             this.productsStorage = productsStorage;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<ActionResult> Index()
         {
             var products = await productsStorage.GetAllAsync();
             return View(products.Select(x => x.ToProductViewModel()).ToList());

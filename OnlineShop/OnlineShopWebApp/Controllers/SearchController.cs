@@ -21,7 +21,7 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(string searchRequest)
+        public async Task<ActionResult> Index(string searchRequest)
         {
             var searchResult = await productsStorage.SearchAsync(searchRequest);
             return View(nameof(Index), searchResult.Select(x => x.ToProductViewModel()).ToList());

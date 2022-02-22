@@ -16,25 +16,25 @@ namespace OnlineShopWebApp.Controllers
             this.productsStorage = productsStorage;
             this.cartsStorage = cartsStorage;
         }
-        public async Task<IActionResult> Index()
+        public async Task<ActionResult> Index()
         {
             var cart = await cartsStorage.TryGetByUserIdAsync(Constants.UserId);
             return View(cart.ToCartViewModel());
         }
 
-        public async Task<IActionResult> AddAsync(Guid productId)
+        public async Task<ActionResult> AddAsync(Guid productId)
         {
             var product = await productsStorage.TryGetByIdAsync(productId);
             await cartsStorage.AddAsync(product, Constants.UserId);
             return RedirectToAction(nameof(Index));
         }
-        public async Task<IActionResult> DecreaseAmountAsync(Guid productId)
+        public async Task<ActionResult> DecreaseAmountAsync(Guid productId)
         {
             var product = await productsStorage.TryGetByIdAsync(productId);
             await cartsStorage.DecreaseAmountAsync(product, Constants.UserId);
             return RedirectToAction(nameof(Index));
         }
-        public async Task<IActionResult> ClearAsync()
+        public async Task<ActionResult> ClearAsync()
         {
             await cartsStorage.ClearAsync(Constants.UserId);
             return RedirectToAction(nameof(Index));
