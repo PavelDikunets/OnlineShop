@@ -2,6 +2,7 @@
 using OnlineShop.Db;
 using OnlineShopWebApp.Helpers;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -14,9 +15,9 @@ namespace OnlineShopWebApp.Controllers
             this.productsStorage = productsStorage;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var products = productsStorage.GetAll();
+            var products = await productsStorage.GetAllAsync();
             return View(products.Select(x => x.ToProductViewModel()).ToList());
         }
     }

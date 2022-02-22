@@ -1,7 +1,9 @@
-﻿using OnlineShop.Db.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineShop.Db.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OnlineShop.Db
 {
@@ -13,17 +15,17 @@ namespace OnlineShop.Db
         {
             this.databaseContext = databaseContext;
         }
-        public List<Product> GetAll()
+        public async Task<List<Product>> GetAllAsync()
         {
-            return databaseContext.Products.ToList();
+            return await databaseContext.Products.ToListAsync();
         }
-        public Product TryGetById(Guid id)
+        public async Task<Product> TryGetByIdAsync(Guid id)
         {
-            return databaseContext.Products.FirstOrDefault(product => product.Id == id);
+            return await databaseContext.Products.FirstOrDefaultAsync(product => product.Id == id);
         }
-        public void Remove(Guid id)
+        public async void Remove(Guid id)
         {
-            var product = TryGetById(id);
+            var product = await TryGetByIdAsync(id);
             databaseContext.Products.Remove(product);
             databaseContext.SaveChanges();
         }
@@ -32,20 +34,20 @@ namespace OnlineShop.Db
             databaseContext.Products.Add(product);
             databaseContext.SaveChanges();
         }
-        public void Update(Product editedProduct)
+        public async void Update(Product editedProduct)
         {
-            var product = TryGetById(editedProduct.Id);
+            var product = await TryGetByIdAsync(editedProduct.Id);
             databaseContext.Products.Remove(product);
             databaseContext.Products.Add(editedProduct);
             databaseContext.SaveChanges();
         }
 
-        public List<Product> Search(string searchRequest)
+        public async Task<List<Product>> SearchAsync(string searchRequest)
         {
             var searchResult = new List<Product>();
             if (!string.IsNullOrEmpty(searchRequest))
             {
-                searchResult = databaseContext.Products.Where(x => x.Name.ToLower().Contains(searchRequest.ToLower())).ToList();
+                searchResult = await databaseContext.Products.Where(x => x.Name.ToLower().Contains(searchRequest.ToLower())).ToListAsync();
             }
             return searchResult;
         }

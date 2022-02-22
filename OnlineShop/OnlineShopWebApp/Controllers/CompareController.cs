@@ -3,6 +3,7 @@ using OnlineShop.Db;
 using OnlineShopWebApp.Helpers;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -23,9 +24,9 @@ namespace OnlineShopWebApp.Controllers
             return View(products.Select(x => x.ToProductViewModel()).ToList());
         }
 
-        public IActionResult Add(Guid productId)
+        public async Task<IActionResult> AddAsync(Guid productId)
         {
-            var product = productsStorage.TryGetById(productId);
+            var product = await productsStorage.TryGetByIdAsync(productId);
             compareProductStorage.Add(Constants.UserId, product);
             return RedirectToAction(nameof(Index));
         }

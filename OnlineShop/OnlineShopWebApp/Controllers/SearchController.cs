@@ -2,6 +2,7 @@
 using OnlineShop.Db;
 using OnlineShopWebApp.Helpers;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -20,9 +21,9 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string searchRequest)
+        public async Task<IActionResult> Index(string searchRequest)
         {
-            var searchResult = productsStorage.Search(searchRequest);
+            var searchResult = await productsStorage.SearchAsync(searchRequest);
             return View(nameof(Index), searchResult.Select(x => x.ToProductViewModel()).ToList());
         }
     }

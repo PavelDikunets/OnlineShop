@@ -2,6 +2,7 @@
 using OnlineShop.Db;
 using OnlineShopWebApp.Helpers;
 using System;
+using System.Threading.Tasks;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -21,15 +22,15 @@ namespace OnlineShopWebApp.Controllers
             return View(cart.ToCartViewModel());
         }
 
-        public IActionResult Add(Guid productId)
+        public async Task<IActionResult> AddAsync(Guid productId)
         {
-            var product = productsStorage.TryGetById(productId);
+            var product = await productsStorage.TryGetByIdAsync(productId);
             cartsStorage.Add(product, Constants.UserId);
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult DecreaseAmount(Guid productId)
+        public async Task<IActionResult> DecreaseAmountAsync(Guid productId)
         {
-            var product = productsStorage.TryGetById(productId);
+            var product = await productsStorage.TryGetByIdAsync(productId);
             cartsStorage.DecreaseAmount(product, Constants.UserId);
             return RedirectToAction(nameof(Index));
         }

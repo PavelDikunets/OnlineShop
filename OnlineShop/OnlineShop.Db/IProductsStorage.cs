@@ -1,16 +1,17 @@
 ﻿using OnlineShop.Db.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OnlineShop.Db
 {
     public interface IProductsStorage
     {
-        List<Product> GetAll();
-        Product TryGetById(Guid id);
+        Task<List<Product>> GetAllAsync();
+        Task<Product> TryGetByIdAsync(Guid id);
         void Remove(Guid id);
         void Add(Product product);
         void Update(Product editedProduct);
-        List<Product> Search(string searchRequest);
+        Task<List<Product>> SearchAsync(string searchRequest);
     }
 }
