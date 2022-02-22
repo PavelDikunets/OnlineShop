@@ -27,19 +27,19 @@ namespace OnlineShop.Db
         {
             var product = await TryGetByIdAsync(id);
             databaseContext.Products.Remove(product);
-            databaseContext.SaveChanges();
+            await databaseContext.SaveChangesAsync();
         }
         public async Task AddAsync(Product product)
         {
             await databaseContext.Products.AddAsync(product);
-            databaseContext.SaveChanges();
+            await databaseContext.SaveChangesAsync();
         }
         public async Task UpdateAsync(Product editedProduct)
         {
             var product = await TryGetByIdAsync(editedProduct.Id);
             databaseContext.Products.Remove(product);
-            databaseContext.Products.Add(editedProduct);
-            databaseContext.SaveChanges();
+            await databaseContext.Products.AddAsync(editedProduct);
+            await databaseContext.SaveChangesAsync();
         }
 
         public async Task<List<Product>> SearchAsync(string searchRequest)
