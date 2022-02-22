@@ -43,13 +43,13 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
                 Cost = product.Cost,
                 Description = product.Description
             };
-            productsStorage.Update(productDb);
+            productsStorage.UpdateAsync(productDb);
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Remove(Guid productId)
         {
-            productsStorage.Remove(productId);
+            productsStorage.RemoveAsync(productId);
             return RedirectToAction(nameof(Index));
         }
 
@@ -70,7 +70,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
                 Cost = product.Cost,
                 Description = product.Description
             };
-            productsStorage.Add(productDb);
+            productsStorage.AddAsync(productDb);
             return RedirectToAction(nameof(Index));
         }
     }

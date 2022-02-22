@@ -23,18 +23,18 @@ namespace OnlineShop.Db
         {
             return await databaseContext.Products.FirstOrDefaultAsync(product => product.Id == id);
         }
-        public async void Remove(Guid id)
+        public async Task RemoveAsync(Guid id)
         {
             var product = await TryGetByIdAsync(id);
             databaseContext.Products.Remove(product);
             databaseContext.SaveChanges();
         }
-        public void Add(Product product)
+        public async Task AddAsync(Product product)
         {
-            databaseContext.Products.Add(product);
+            await databaseContext.Products.AddAsync(product);
             databaseContext.SaveChanges();
         }
-        public async void Update(Product editedProduct)
+        public async Task UpdateAsync(Product editedProduct)
         {
             var product = await TryGetByIdAsync(editedProduct.Id);
             databaseContext.Products.Remove(product);

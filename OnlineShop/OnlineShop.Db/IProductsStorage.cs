@@ -9,9 +9,9 @@ namespace OnlineShop.Db
     {
         Task<List<Product>> GetAllAsync();
         Task<Product> TryGetByIdAsync(Guid id);
-        void Remove(Guid id);
-        void Add(Product product);
-        void Update(Product editedProduct);
+        Task RemoveAsync(Guid id);
+        Task AddAsync(Product product);
+        Task UpdateAsync(Product editedProduct);
         Task<List<Product>> SearchAsync(string searchRequest);
     }
 }
