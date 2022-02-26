@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Models;
@@ -10,11 +11,13 @@ namespace OnlineShopWebApp.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IMapper _mapper;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _mapper = mapper;
         }
 
         public IActionResult Login(string returnUrl)
@@ -46,18 +49,18 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> RegistrationAsync(UserAccountViewModel userAccount)
+        public async Task<ActionResult> RegistrationAsync(UserViewModel model)
         {
-            if (userAccount.Login == userAccount.Password)
+            if (model.UserName == model.Password)
             {
                 ModelState.AddModelError("", "Логин и пароль не должны совпадать!");
-                return View(userAccount);
+                return View(model);
             }
 
             if (ModelState.IsValid)
             {
-                User user = new User { Email = userAccount.Login, UserName = userAccount.Login };
-                var result = await _userManager.CreateAsync(user, userAccount.Password);
+                var user = _mapper.Map<User>(model);
+                var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
@@ -71,7 +74,7 @@ namespace OnlineShopWebApp.Controllers
                     }
                 }
             }
-            return View(userAccount);
+            return View(model);
         }
 
         public async Task<ActionResult> LogoutAsync()
