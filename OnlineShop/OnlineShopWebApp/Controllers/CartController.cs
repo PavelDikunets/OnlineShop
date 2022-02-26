@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShopWebApp.Helpers;
 using System;
 using System.Threading.Tasks;
 
@@ -10,16 +10,19 @@ namespace OnlineShopWebApp.Controllers
     {
         private readonly IProductsStorage productsStorage;
         private readonly ICartsStorage cartsStorage;
+        private readonly IMapper _mapper;
 
-        public CartController(IProductsStorage productsStorage, ICartsStorage cartsStorage)
+        public CartController(IProductsStorage productsStorage, ICartsStorage cartsStorage, IMapper mapper)
         {
             this.productsStorage = productsStorage;
             this.cartsStorage = cartsStorage;
+            _mapper = mapper;
         }
         public async Task<ActionResult> Index()
         {
             var cart = await cartsStorage.TryGetByUserIdAsync(Constants.UserId);
-            return View(cart.ToCartViewModel());
+            var model = _mapper.Map<CartViewModel>(cart);
+            return View(model);
         }
 
         public async Task<ActionResult> AddAsync(Guid productId)
