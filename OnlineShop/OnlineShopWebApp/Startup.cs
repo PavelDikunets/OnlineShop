@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
+using OnlineShopWebApp.Helpers;
 using Serilog;
 using System;
 
@@ -49,6 +50,8 @@ namespace OnlineShopWebApp
                     IsEssential = true
                 };
             });
+
+            services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddTransient<ICartsStorage, CartsDbStorage>();
             services.AddTransient<IProductsStorage, ProductsDbStorage>();
