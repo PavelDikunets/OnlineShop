@@ -1,8 +1,8 @@
-﻿@model UserAccountViewModel
+﻿@model UserViewModel
 
 <form method="post">
 <div class="text-center">
-    <h3>Логин: @Model.Login</h3>
+    <h3>Логин: @Model.UserName</h3>
 </div>
 <div class="container">
     <div class="row">
@@ -17,11 +17,6 @@
                     </tr>
                 </thread>
                 <tbody>
-                    <tr>
-                        <td>Id</td>
-                        <td>@Model.Id</td>
-                        <td>@Model.PhoneNumber</td>
-                    </tr>
                     <tr>
                         <td>Фамилия</td>
                         <td>@Model.LastName</td>
@@ -41,10 +36,10 @@
                     Действия
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangePassword" asp-route-login="@Model.Login">Смена пароля</a>
-                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-login="@Model.Login">Редактирование данных</a>
-                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="EditRights" asp-route-login="@Model.Login">Права доступа</a>
-                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Remove" asp-route-login="@Model.Login">Удалить пользователя</a>
+                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangePassword" asp-route-userName="@Model.UserName">Смена пароля</a>
+                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-userName="@Model.UserName">Редактирование данных</a>
+                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="EditRights" asp-route-userName="@Model.UserName">Права доступа</a>
+                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Remove" asp-route-userName="@Model.UserName">Удалить пользователя</a>
                 </div>
             </div>
         </div>

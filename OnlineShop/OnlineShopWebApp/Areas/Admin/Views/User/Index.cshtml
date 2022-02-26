@@ -27,11 +27,11 @@
                     {
                     <tr>
                         <td>@counter</td>
-                        <td>@user.Login</td>
+                        <td>@user.UserName</td>
                         <td>@user.FirstName</td>
                         <td>@user.LastName</td>
-                        <td>@user.Phone</td>
-                        <td><a class="btn btn-outline-dark" asp-area="Admin" asp-controller="User" asp-action="Detail" asp-route-login="@user.Login">Подробнее</a></td>
+                        <td>@user.PhoneNumber</td>
+                        <td><a class="btn btn-outline-dark" asp-area="Admin" asp-controller="User" asp-action="Detail" asp-route-userName="@user.UserName">Подробнее</a></td>
                     </tr>
 
                         counter += 1;
