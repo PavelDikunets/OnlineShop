@@ -1,15 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace OnlineShopWebApp.Models
 {
     public class UserViewModel
     {
-        public string Id { get; set; }
-
         [Required(ErrorMessage = "Заполните поле")]
         [EmailAddress(ErrorMessage = "E-mail указан неверно")]
-        public string Email { get; set; }
+        public string UserName { get; set; }
 
         [Required(ErrorMessage = "Заполните поле")]
         [StringLength(20, MinimumLength = 6, ErrorMessage = "Пароль не может быть меньше 6 символов")]
