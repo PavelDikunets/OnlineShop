@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
 using OnlineShopWebApp.Areas.Admin.Models;
-using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,17 +18,20 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IMapper _mapper;
 
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
             var users = _userManager.Users.ToList();
-            return View(users.Select(u => u.ToUserViewModel()).ToList());
+            var model = _mapper.Map<List<UserViewModel>>(users);
+            return View(model);
         }
 
         public IActionResult Add()
@@ -36,24 +40,24 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddAsync(UserAccountViewModel model)
+        public async Task<ActionResult> AddAsync(UserViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            if (model.Login == model.Password)
+            if (model.UserName == model.Password)
             {
                 ModelState.AddModelError("", "Логин и пароль не должны совпадать!");
                 return View(model);
             }
-            if (await _userManager.FindByNameAsync(model.Login) != null)
+            if (await _userManager.FindByNameAsync(model.UserName) != null)
             {
                 ModelState.AddModelError("", "Такой пользователь уже существует!");
                 return View(model);
             }
 
-            User user = new User { Email = model.Login, UserName = model.Login, PhoneNumber = model.PhoneNumber };
+            var user = _mapper.Map<User>(model);
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
@@ -68,45 +72,45 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
             }
             return View(model);
         }
-        public async Task<ActionResult> EditAsync(string login)
+
+        public async Task<ActionResult> EditAsync(string userName)
         {
-            var user = await _userManager.FindByNameAsync(login);
-            UserAccountViewModel model = new UserAccountViewModel { Login = user.Email, PhoneNumber = user.PhoneNumber, Id = user.Id };
+            var user = await _userManager.FindByNameAsync(userName);
+            var model = _mapper.Map<UserViewModel>(user);
             return View(model);
         }
 
         [HttpPost]
-        public async Task<ActionResult> EditAsync(UserAccountViewModel model)
+        public async Task<ActionResult> EditAsync(UserViewModel model)
         {
-            User user = await _userManager.FindByNameAsync(model.Login);
+            User user = await _userManager.FindByNameAsync(model.UserName);
             //Нужно реализовать!
             await _userManager.UpdateAsync(user);
             return View(model);
         }
 
-
-        public async Task<ActionResult> RemoveAsync(string login)
+        public async Task<ActionResult> RemoveAsync(string userName)
         {
-            var user = await _userManager.FindByNameAsync(login);
+            var user = await _userManager.FindByNameAsync(userName);
             await _userManager.DeleteAsync(user);
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<ActionResult> DetailAsync(string login)
+        public async Task<ActionResult> DetailAsync(string userName)
         {
-            var user = await _userManager.FindByNameAsync(login);
-            UserAccountViewModel model = new UserAccountViewModel { Login = user.Email, PhoneNumber = user.PhoneNumber, Id = user.Id };
+            var user = await _userManager.FindByNameAsync(userName);
+            var model = _mapper.Map<UserViewModel>(user);
             return View(model);
         }
 
-        public async Task<ActionResult> ChangePasswordAsync(string login)
+        public async Task<ActionResult> ChangePasswordAsync(string userName)
         {
-            User user = await _userManager.FindByNameAsync(login);
+            User user = await _userManager.FindByNameAsync(userName);
             if (user == null)
             {
                 return NotFound();
             }
-            ChangePasswordViewModel model = new ChangePasswordViewModel { Login = user.Email };
+            var model = _mapper.Map<ChangePasswordViewModel>(user);
             return View(model);
         }
 
@@ -115,7 +119,7 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await _userManager.FindByNameAsync(model.Login);
+                User user = await _userManager.FindByNameAsync(model.UserName);
                 if (user != null)
                 {
                     var _passwordValidator =
