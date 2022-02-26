@@ -3,7 +3,7 @@ using OnlineShop.Db;
 using OnlineShopWebApp.Helpers;
 using System.Threading.Tasks;
 
-namespace OnlineShopWebApp.Views.Shared.Components.Cart
+namespace OnlineShopWebApp.Views.Shared.Components.CartToViewModel
 {
     public class FavoriteProductsCountViewComponent : ViewComponent
     {
