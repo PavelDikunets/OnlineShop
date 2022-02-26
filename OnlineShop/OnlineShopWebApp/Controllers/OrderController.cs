@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
-using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 using System.Threading.Tasks;
 
@@ -13,11 +13,13 @@ namespace OnlineShopWebApp.Controllers
     {
         private readonly ICartsStorage cartsStorage;
         private readonly IOrdersStorage ordersStorage;
+        private readonly IMapper _mapper;
 
-        public OrderController(ICartsStorage cartsStorage, IOrdersStorage ordersStorage)
+        public OrderController(ICartsStorage cartsStorage, IOrdersStorage ordersStorage, IMapper mapper)
         {
             this.cartsStorage = cartsStorage;
             this.ordersStorage = ordersStorage;
+            _mapper = mapper;
         }
         public IActionResult Index()
         {
@@ -25,16 +27,16 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Check_outAsync(UserDeliveryInfoViewModel user)
+        public async Task<ActionResult> Check_outAsync(UserDeliveryInfoViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View("Index", user);
+                return View("Index", model);
             }
             var currentCart = await cartsStorage.TryGetByUserIdAsync(Constants.UserId);
             var orderDb = new Order
             {
-                UserDeliveryInfo = user.ToUserDeliveryInfo(),
+                UserDeliveryInfo = _mapper.Map<UserDeliveryInfo>(model),
                 Items = currentCart.Items
             };
             await ordersStorage.AddAsync(orderDb);
