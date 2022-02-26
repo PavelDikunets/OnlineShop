@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShopWebApp.Helpers;
+using OnlineShopWebApp.Models;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace OnlineShopWebApp.Controllers
@@ -11,17 +12,20 @@ namespace OnlineShopWebApp.Controllers
     {
         private readonly IFavoriteStorage favoriteProductStorage;
         private readonly IProductsStorage productsStorage;
+        private readonly IMapper _mapper;
 
-        public FavoriteController(IFavoriteStorage favoriteProductStorage, IProductsStorage productsStorage)
+        public FavoriteController(IFavoriteStorage favoriteProductStorage, IProductsStorage productsStorage, IMapper mapper)
         {
             this.favoriteProductStorage = favoriteProductStorage;
             this.productsStorage = productsStorage;
+            _mapper = mapper;
         }
 
         public async Task<ActionResult> Index()
         {
             var products = await favoriteProductStorage.GetAllAsync(Constants.UserId);
-            return View(products.Select(x => x.ToProductViewModel()).ToList());
+            var model = _mapper.Map<List<ProductViewModel>>(products);
+            return View(model);
         }
 
         public async Task<ActionResult> AddAsync(Guid productId)
