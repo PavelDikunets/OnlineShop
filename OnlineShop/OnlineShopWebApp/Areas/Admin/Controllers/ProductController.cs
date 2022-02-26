@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
-using OnlineShopWebApp.Helpers;
 using OnlineShopWebApp.Models;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace OnlineShopWebApp.Areas.Admin.Controllers
@@ -15,35 +15,33 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly IProductsStorage productsStorage;
+        private readonly IMapper _mapper;
 
-        public ProductController(IProductsStorage productsStorage)
+        public ProductController(IProductsStorage productsStorage, IMapper mapper)
         {
             this.productsStorage = productsStorage;
+            _mapper = mapper;
         }
 
         public async Task<ActionResult> Index()
         {
             var products = await productsStorage.GetAllAsync();
-            return View(products.Select(x => x.ToProductViewModel()).ToList());
+            var model = _mapper.Map<List<ProductViewModel>>(products);
+            return View(model);
         }
 
         public async Task<ActionResult> EditAsync(Guid productId)
         {
             var product = await productsStorage.TryGetByIdAsync(productId);
-            return View(product.ToProductViewModel());
+            var model = _mapper.Map<ProductViewModel>(product);
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<ActionResult> EditAsync(ProductViewModel product)
+        public async Task<ActionResult> EditAsync(ProductViewModel model)
         {
-            var productDb = new Product
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Cost = product.Cost,
-                Description = product.Description
-            };
-            await productsStorage.UpdateAsync(productDb);
+            var product = _mapper.Map<Product>(model);
+            await productsStorage.UpdateAsync(product);
             return RedirectToAction(nameof(Index));
         }
 
@@ -59,19 +57,14 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddAsync(ProductViewModel product)
+        public async Task<ActionResult> AddAsync(ProductViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(product);
+                return View(model);
             }
-            var productDb = new Product
-            {
-                Name = product.Name,
-                Cost = product.Cost,
-                Description = product.Description
-            };
-            await productsStorage.AddAsync(productDb);
+            var product = _mapper.Map<Product>(model);
+            await productsStorage.AddAsync(product);
             return RedirectToAction(nameof(Index));
         }
     }
