@@ -84,9 +84,10 @@ namespace OnlineShopWebApp.Areas.Admin.Controllers
         public async Task<ActionResult> EditAsync(UserViewModel model)
         {
             User user = await _userManager.FindByNameAsync(model.UserName);
-            //Нужно реализовать!
+            user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
             await _userManager.UpdateAsync(user);
-            return View(model);
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<ActionResult> RemoveAsync(string userName)
