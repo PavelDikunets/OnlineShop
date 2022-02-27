@@ -1,48 +1,44 @@
 ﻿@model UserViewModel
 
 <form method="post">
-<div class="text-center">
-    <h3>Логин: @Model.UserName</h3>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-md-2">
-            @await Html.PartialAsync("AdminLeftMenu")
-        </div>
-        <div class="col-md">
-            <table class="table">
-                <thread>
-                    <tr>
-                        <th>Подробная информация</th>
-                    </tr>
-                </thread>
-                <tbody>
-                    <tr>
-                        <td>Фамилия</td>
-                        <td>@Model.LastName</td>
-                    </tr>
-                    <tr>
-                        <td>Имя</td>
-                        <td>@Model.FirstName</td>
-                    </tr>
-                    <tr>
-                        <td>Телефон</td>
-                        <td>@Model.PhoneNumber</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="col-md text-right">
-                <button class="btn btn-outline-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Действия
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangePassword" asp-route-userName="@Model.UserName">Смена пароля</a>
-                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-userName="@Model.UserName">Редактирование данных</a>
-                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="EditRights" asp-route-userName="@Model.UserName">Права доступа</a>
-                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Remove" asp-route-userName="@Model.UserName">Удалить пользователя</a>
+    <div class="text-center">
+        <h3>Логин: @Model.UserName</h3>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                @await Html.PartialAsync("AdminLeftMenu")
+            </div>
+            <div class="col-md">
+                <table class="table">
+                    <thread>
+                        <tr>
+                            <th>Подробная информация</th>
+                        </tr>
+                    </thread>
+                    <tbody>
+                        <tr>
+                            <td>Почта</td>
+                            <td>@Model.Email</td>
+                        </tr>
+                        <tr>
+                            <td>Телефон</td>
+                            <td>@Model.PhoneNumber</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="col-md text-right">
+                    <button class="btn btn-outline-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Действия
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangePassword" asp-route-userName="@Model.UserName">Смена пароля</a>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-userName="@Model.UserName">Редактирование данных</a>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="EditRights" asp-route-userName="@Model.UserName">Права доступа</a>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Remove" asp-route-userName="@Model.UserName">Удалить пользователя</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </form>
