@@ -5,7 +5,8 @@ namespace OnlineShopWebApp.Models
     public class LoginViewModel
     {
         [Required(ErrorMessage = "Заполните поле")]
-        [EmailAddress(ErrorMessage = "E-mail указан неверно")]
+        [StringLength(20, MinimumLength = 4, ErrorMessage = "Логин не может быть меньше 4 символов")]
+        [RegularExpression(@"[a-z,A-Z,0-9]+$", ErrorMessage = "Логин может состоять только из цифр и букв английской раскладки")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Заполните поле")]
