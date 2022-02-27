@@ -10,21 +10,12 @@
                 @await Html.PartialAsync("AdminLeftMenu")
             </div>
             <div class="col-md">
+                <input type="hidden" name="userName" value="@Model.UserName" />
                 <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
                 <div>
-                    <label asp-for="UserName">Логин:</label>
-                    <input asp-for="UserName" value="@Model.UserName" />
-                    <span style="color:lightcoral" asp-validation-for="UserName" />
-                </div>
-                <div class="my-2">
-                    <label asp-for="LastName">Фамилия:</label>
-                    <input asp-for="LastName" value="@Model.LastName" />
-                    <span style="color:lightcoral" asp-validation-for="LastName" />
-                </div>
-                <div class="my-2">
-                    <label asp-for="FirstName">Имя:</label>
-                    <input asp-for="FirstName" value="@Model.FirstName" />
-                    <span style="color:lightcoral" asp-validation-for="FirstName" />
+                    <label asp-for="Email">Почта:</label>
+                    <input asp-for="Email" value="@Model.Email" />
+                    <span style="color:lightcoral" asp-validation-for="Email" />
                 </div>
                 <div class="my-2">
                     <label asp-for="PhoneNumber">Телефон:</label>
@@ -32,7 +23,7 @@
                     <span style="color:lightcoral" asp-validation-for="PhoneNumber" />
                 </div>
                 <div class="my-2 text-right">
-@*                    <button class="btn btn-success" type="submit" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-id="@Model.Id">Сохранить</button>*@
+                    <button class="btn btn-success" type="submit" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-userName="@Model.UserName">Сохранить</button>
                     <a class="btn btn-dark" asp-area="Admin" asp-controller="User" asp-action="Index" role="button">К списку пользователей</a>
                 </div>
             </div>
