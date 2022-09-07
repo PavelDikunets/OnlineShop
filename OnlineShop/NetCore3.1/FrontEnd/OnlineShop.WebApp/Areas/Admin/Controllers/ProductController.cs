@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
-using OnlineShopWebApp.Models;
+using OnlineShop.WebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace OnlineShopWebApp.Areas.Admin.Controllers
+namespace OnlineShop.WebApp.Areas.Admin.Controllers
 {
     [Area(Constants.AdminRoleName)]
     [Authorize(Roles = Constants.AdminRoleName)]

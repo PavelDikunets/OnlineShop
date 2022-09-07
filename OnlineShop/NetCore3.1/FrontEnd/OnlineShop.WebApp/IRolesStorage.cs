@@ -1,7 +1,7 @@
-﻿using OnlineShopWebApp.Areas.Admin.Models;
+﻿using OnlineShop.WebApp.Areas.Admin.Models;
 using System.Collections.Generic;
 
-namespace OnlineShopWebApp
+namespace OnlineShop.WebApp
 {
     public interface IRolesStorage
     {

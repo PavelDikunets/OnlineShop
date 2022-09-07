@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
+using OnlineShop.WebApp.Models;
 using System;
 using System.Threading.Tasks;
 
-namespace OnlineShopWebApp.Controllers
+namespace OnlineShop.WebApp.Controllers
 {
     public class CartController : Controller
     {

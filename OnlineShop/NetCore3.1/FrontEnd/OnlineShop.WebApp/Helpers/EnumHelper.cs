@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 
-namespace OnlineShopWebApp.Helpers
+namespace OnlineShop.WebApp.Helpers
 {
     public class EnumHelper
     {

@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShopWebApp.Helpers;
 using System.Threading.Tasks;
 
-namespace OnlineShopWebApp.Views.Shared.Components.CartToViewModel
+namespace OnlineShop.WebApp.Views.Shared.Components.FavoriteProductsCount
 {
     public class FavoriteProductsCountViewComponent : ViewComponent
     {

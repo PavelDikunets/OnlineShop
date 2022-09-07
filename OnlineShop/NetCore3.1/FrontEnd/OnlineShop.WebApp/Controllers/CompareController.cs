@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShopWebApp.Models;
+using OnlineShop.WebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace OnlineShopWebApp.Controllers
+namespace OnlineShop.WebApp.Controllers
 {
     public class CompareController : Controller
     {

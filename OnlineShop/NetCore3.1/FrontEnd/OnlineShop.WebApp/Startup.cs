@@ -8,11 +8,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
-using OnlineShopWebApp.Helpers;
+using OnlineShop.WebApp.Helpers;
+using OnlineShopWebApp;
 using Serilog;
 using System;
 
-namespace OnlineShopWebApp
+namespace OnlineShop.WebApp
 {
     public class Startup
     {

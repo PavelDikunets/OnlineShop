@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
-using OnlineShopWebApp.Areas.Admin.Models;
+using OnlineShop.WebApp.Areas.Admin.Models;
 
-namespace OnlineShopWebApp.Areas.Admin.Controllers
+namespace OnlineShop.WebApp.Areas.Admin.Controllers
 {
     [Area(Constants.AdminRoleName)]
     [Authorize(Roles = Constants.AdminRoleName)]

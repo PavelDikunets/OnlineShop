@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using OnlineShop.Db;
-using OnlineShopWebApp.Models;
 using System;
 using System.Threading.Tasks;
+using OnlineShop.WebApp.Models;
+using OnlineShop.Db;
 
-namespace OnlineShopWebApp.Controllers
+namespace OnlineShop.WebApp.Controllers
 {
     public class ProductController : Controller
     {

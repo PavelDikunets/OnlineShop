@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
-using OnlineShopWebApp.Models;
+using OnlineShop.WebApp.Models;
+using OnlineShopWebApp;
 using System.Threading.Tasks;
 
-namespace OnlineShopWebApp.Controllers
+namespace OnlineShop.WebApp.Controllers
 {
     [Authorize]
     public class OrderController : Controller

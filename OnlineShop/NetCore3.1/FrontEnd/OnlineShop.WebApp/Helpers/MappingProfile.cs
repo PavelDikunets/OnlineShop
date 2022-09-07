@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using OnlineShop.Db.Models;
-using OnlineShopWebApp.Areas.Admin.Models;
-using OnlineShopWebApp.Models;
+using OnlineShop.WebApp.Areas.Admin.Models;
+using OnlineShop.WebApp.Models;
 
-namespace OnlineShopWebApp.Helpers
+namespace OnlineShop.WebApp.Helpers
 {
     public class MappingProfile : Profile
     {

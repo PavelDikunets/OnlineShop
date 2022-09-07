@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db;
+using OnlineShop.WebApp.Models;
 using System.Threading.Tasks;
 
-namespace OnlineShopWebApp.Views.Shared.Components.CartToViewModel
+namespace OnlineShop.WebApp.Views.Shared.Components.Cart
 {
     public class CartViewComponent : ViewComponent
     {

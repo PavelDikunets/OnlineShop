@@ -7,7 +7,7 @@ using OnlineShop.Db.Models;
 using Serilog;
 using System.Threading.Tasks;
 
-namespace OnlineShopWebApp
+namespace OnlineShop.WebApp
 {
     public class Program
     {

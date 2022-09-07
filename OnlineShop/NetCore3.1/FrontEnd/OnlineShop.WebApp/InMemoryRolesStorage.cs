@@ -1,8 +1,8 @@
-﻿using OnlineShopWebApp.Areas.Admin.Models;
+﻿using OnlineShop.WebApp.Areas.Admin.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OnlineShopWebApp
+namespace OnlineShop.WebApp
 {
     public class InMemoryRolesStorage : IRolesStorage
     {

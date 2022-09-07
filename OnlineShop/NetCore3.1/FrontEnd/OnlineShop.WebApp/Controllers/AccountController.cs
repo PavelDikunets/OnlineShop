@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Db.Models;
-using OnlineShopWebApp.Models;
+using OnlineShop.WebApp.Models;
 using System.Threading.Tasks;
 
-namespace OnlineShopWebApp.Controllers
+namespace OnlineShop.WebApp.Controllers
 {
     public class AccountController : Controller
     {
