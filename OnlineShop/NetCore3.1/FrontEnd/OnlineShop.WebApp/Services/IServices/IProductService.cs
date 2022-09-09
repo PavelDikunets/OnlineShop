@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace OnlineShop.WebApp.Services.IServices
 {
-    public interface IProductService
+    public interface IProductService : IBaseService
     {
         Task<T> GetAllProductsAsync<T>();
         Task<T> GetProductbyIdAsync<T>(Guid id);
