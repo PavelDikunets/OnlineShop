@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using OnlineShop.Db;
 using OnlineShop.Db.Models;
 using OnlineShop.WebApp.Helpers;
+using OnlineShop.WebApp.Services.IServices;
 using OnlineShopWebApp;
 using Serilog;
 using System;
@@ -27,6 +28,11 @@ namespace OnlineShop.WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient<IProductService, IProductService>();
+            StaticDetails.ProductAPIBase = Configuration["ServiceUrls:ProductAPI"];
+            services.AddScoped<IProductService, IProductService>();
+            services.AddControllersWithViews();
+
             string connection = Configuration.GetConnectionString("online_shop");
 
             services.AddDbContext<DatabaseContext>(options =>
